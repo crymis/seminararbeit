@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
 \usepackage{hyperref}
-\usepackage[margin=3cm]{geometry}
+%\usepackage[margin=3cm]{geometry}
 \usepackage{graphicx}
 
 
@@ -22,7 +22,18 @@
 \maketitle
 \tableofcontents
 \section{Motivation}
+2D-Computer-Spiele haben eine lange Tradition. Von alten Gameboy-Spielen bis hin zu modernen, grafik-gewaltigen Spielen auf modernen Spielekonsolen oder iPhone-Spiele gibt es tausende verschiedene Titel, die alle nur denkbaren Spielprinzipien, Zielgruppen und Themengebiete abdecken. Seit dem Einzug des Internets in den Massenmarkt gehören dazu auch Spiele im Browser.
+Diese benötigen keine Installation, sind immer auf dem neuesten Stand und daher sowohl bei Entwicklern als auch bei Kunden beliebt. Lange Zeit wurden diese Spiele fast ausnahmslos in Flash umgesetzt, was einige Probleme mit sich brachte. Zum einen muss ein Flash-Player auf dem Endgerät installiert sein; außerdem ist der Flash-Player eine proprietäre Software und daher der vollkommenen Kontrolle der Rechte-Inhaber unterworfen. Heute gibt es verschiedene offene, standardisierte Technologien, die es ermöglichen, 2D-Browserspiele ohne Einsatz kommerzieller Software zu entwickeln und anderen zur Verfügung zu stellen. Dieses Dokument gibt einen Überblick über den Stand der momentan verfügbaren Technologien und untersucht anhand Indikatoren wie Performance, Community, Browser-Unterstützung und Framework-Verfügbarkeit, welche Technologien sich heute besonders eignen, 2D-Spiele im Browser zu entwickeln.
 \section{Anforderungen}
+In dieser Ausarbeitung werdend die Technologien HTML5-Canvas, WebGL, DOM-Sprites und SVG untersucht. Dabei werden der Aufbau und die Arbeitsweise vorgestellt und anschließend folgende Eigenschaften bewertet.
+\paragraph{Community}
+Gibt es bekannte Projekte, die die Technologie einsetzen? Hat sich ein Ökosystem aus Blogs, Foren und Hobby-Entwicklern gebildet, die dabei helfen, Fehler und Probleme zu entdecken und zu beseitigen? Gibt es Firmen oder Komitees, die die Weiterentwicklung vorantreiben oder ermutigen? Eine Technologie kann nur überleben, wenn sich eine solche Community entwickelt, die das Projekt ständig weiterentwickelt und an neue Anforderungen anpasst.
+\paragraph{Frameworks}
+Gibt es Frameworks, die eine abstrakte, einfach zu verwendende API bereitstellen? Sind diese praxistauglich und umfangreich, gibt es Plugins und Erweiterungen? Nicht nur sind solche Projekte eine guter Indikator dafür, dass sich Menschen mit der Technologie beschäftigen und sie auf Tauglichkeit überprüfen, ohne solche Hilfsmittel wird es in der Praxis oft sehr schwierig, echte, große Anwendungen umzusetzen.
+\paragraph{Unterstützung}
+Ist es überhaupt möglich, die Technologie in der Praxis einzusetzen, oder befindet sich diese noch im Beta-Stadium? Da die Zielgruppe bei Browser-Spielen sehr groß ist und eine Vielzahl von verschiedenen Plattformen und Browsern verwendet wird, ist eine große Verbreitung und eine stabile Laufzeitumgebung auf möglichst vielen Geräten ein großes Plus wenn nicht sogar essentiell.
+\paragraph{Performance}
+Die Technologie selbst mag den anderen Anforderungen genügen, aber ist die Leistung ausreichend für einen flüssigen Spielablauf? Gerade im Browser, wo die Performance generell etwas schlechter wie z.B. bei Desktop-Anwendungen ist, muss auf diesen Punkt besonders viel Rücksicht genommen werden. Auch hier muss die Vielzahl der Endgeräte und Plattformen mit zum Teil sehr deutlich unterschiedlichen Rechenleistungen beachtet werden.
 \section{HTML5-Canvas}
 \subsection{Technologie}
 \subsection{Frameworks}
@@ -34,6 +45,11 @@
 \subsection{Beispiel}
 \subsection{Performance}
 \section{DOM}
+\subsection{Technologie}
+\subsection{Frameworks}
+\subsection{Beispiel}
+\subsection{Performance}
+\section{SVG}
 \subsection{Technologie}
 \subsection{Frameworks}
 \subsection{Beispiel}
