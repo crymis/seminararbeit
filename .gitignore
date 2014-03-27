@@ -1,0 +1,9 @@
+db/
+**.swp
+*.out
+*.aux
+*.backup
+*.toc
+*.log
+*~
+*.pdf
