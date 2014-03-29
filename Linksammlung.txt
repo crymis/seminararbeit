@@ -65,3 +65,5 @@ http://smus.com/canvas-vs-svg-performance/
 http://stackoverflow.com/questions/11571026/state-of-svg-performance-on-ios-and-other-tablets
 http://stackoverflow.com/questions/5882716/html5-canvas-vs-svg-vs-div
 http://joeloughton.com/blog/web-applications/svg-vs-canvas-performance/
+
+http://apike.ca/prog_svg_images.html
