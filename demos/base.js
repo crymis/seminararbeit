@@ -59,6 +59,9 @@ window.demoHeight = -1;
         var counterEl = $('#fps-counter');
         $('#demo-nav li').click(function (){
             $(this).addClass("active").siblings().removeClass("active");
+            if(runningSimulation != null) {
+                clearInterval(runningSimulation);
+            }
             $('#democontainer').html("");
             selectedDemo = $(this).attr("data-show");
         });
