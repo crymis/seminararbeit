@@ -9,12 +9,15 @@
         
         <style type="text/css">
             #democontainer {
-                width: 700px;
-                height: 500px;
                 overflow: hidden;
                 border: 1px solid grey;
                 border-radius: 3px;
                 margin-top: 5px;
+                min-height: 300px;
+            }
+            
+            #workbench {
+                margin-top: 10px;
             }
         </style>
         
@@ -71,7 +74,7 @@
                       <li data-show="dom"><a href="#">DOM</a></li>
                     </ul>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8" id="workbench">
                         <form class="form-inline" role="form">
                           <div class="form-group">
                             <label for="amountObjects">Amount objects</label>

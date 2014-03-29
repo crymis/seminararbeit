@@ -1,6 +1,6 @@
 window.performanceDemos = {};
-window.demoWidth = 700;
-window.demoHeight = 500;
+window.demoWidth = -1;
+window.demoHeight = -1;
 
 (function($) {
     var selectedDemo = "canvas";
@@ -78,6 +78,8 @@ window.demoHeight = 500;
             }
             amountObjects = parseInt($('#amountObjects').val());
             targetedF = 1000/parseInt($('#fps').val());
+            window.demoWidth = $('#democontainer').width();
+            window.demoHeight = $('#democontainer').height();
             //trigger demo
             if(typeof window.performanceDemos[selectedDemo] != "function") {
                 alert("Not yet implemented");
