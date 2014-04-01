@@ -5,6 +5,38 @@
 \usepackage{hyperref}
 %\usepackage[margin=3cm]{geometry}
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstdefinelanguage{javascript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{mygray}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+}
 
 
 \title{2D-Zeichnen im Browser}
@@ -36,6 +68,33 @@ Ist es überhaupt möglich, die Technologie in der Praxis einzusetzen, oder befi
 Die Technologie selbst mag den anderen Anforderungen genügen, aber ist die Leistung ausreichend für einen flüssigen Spielablauf? Gerade im Browser, wo die Performance generell etwas schlechter wie z.B. bei Desktop-Anwendungen ist, muss auf diesen Punkt besonders viel Rücksicht genommen werden. Auch hier muss die Vielzahl der Endgeräte und Plattformen mit zum Teil sehr deutlich unterschiedlichen Rechenleistungen beachtet werden.
 \section{HTML5-Canvas}
 \subsection{Technologie}
+\paragraph{} Das Canvas-Element (englisch für Leinwand) und die entsprechende Javascript-API ist vom W3C spezifiziert und wird von allen großen Browser-Herstellern implementiert. Dadurch ist gesichert, dass ein Browser-Spiel, das das Canvas-Element zur Darstellung nutzt, in auch vielfältigen  Umgebungen korrekt funktioniert. Auch WebGL gehört zum Canvas-Standard, da das Canvas-Element verschiedene Kontexte unterstützt; dieses Kapitel behandelt jedoch ausschließlich den \glqq 2d\grqq-Kontext, der \glqq webgl\grqq-Kontext wird im Kapitel \emph{WebGL} behandelt.
+\paragraph{API} Die Canvas-API zeichnet sich besonders durch Schlichtheit und eine niedrige Lernkurve aus. Dabei ist der Zeichen-Kontext als Zustandsautomat implementiert, d.h. es werden nicht alle Informationen zum Zeichnen einer Linie in einem Methoden-Aufruf mitgegeben, sondern in mehreren. Erst wird der Zeichen-Stil konfiguriert, dann wird der Pfad definiert und dann die Linie gezeichnet.
+\begin{lstlisting}[language=javascript]
+context.strokeStyle = '#fa00ff'; //definiere Farbe
+context.lineWidth = 5; //definiere Stift-Breite
+context.lineCap = 'round'; //definiere Linien-Abschluss
+context.beginPath(); //definiere pfad
+context.moveTo(0,0); //...
+context.lineTo(100,100); //...
+context.stroke(); //zeichne linie mit obigen einstellungen
+\end{lstlisting}
+Da in der Praxis meist mehrere Zeichenoperationen mit der selben Konfiguration durchgeführt werden, hat dies den Vorteil dass so Rechenleistung gespart werden kann und der Quellcode einfacher bleibt.
+\paragraph{Umfang} Mit dem Canvas-Element lassen sich unter anderem folgende Dinge zeichnen:
+TODO: quote wikipedia here
+\begin{itemize}
+	\item Linien (gestrichelt, durchgezogen, ...)
+	\item (gefüllte) Rechtecke
+	\item Kreisbögen
+	\item (gefüllte) Ellipsen
+	\item Bezierkurven
+	\item Gradienten
+	\item Pixel-Grafiken (alles, was mit dem Image-Objekt geladen werden kann)
+	\item Text
+	\item Transparenz
+\end{itemize}
+Damit ist es perfekt geeignet, um auch aufwendige 2D-Spiele darzustellen, die meistens aus Serien von Pixelgrafiken bestehen, die in schneller Folge eingeblendet werden (sogenannte \emph{Sprites}).
+\subsection{Unterstützung}
 \subsection{Frameworks}
 \subsection{Beispiel}
 \subsection{Performance}
