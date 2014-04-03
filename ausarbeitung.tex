@@ -95,7 +95,21 @@ TODO: quote wikipedia here
 \end{itemize}
 Damit ist es perfekt geeignet, um auch aufwendige 2D-Spiele darzustellen, die meistens aus Serien von Pixelgrafiken bestehen, die in schneller Folge eingeblendet werden (sogenannte \emph{Sprites}).
 \subsection{Unterstützung}
+TODO: quote caniuse.com
+Der 2D-Kontext wird von allen modernen Browsern unterstützt, Opera Mini bildet hier die einzige Ausnahme; sogar mobile Browser bieten die API durchgehend an. Sogar Internet-Explorer, der dafür bekannt ist, bei der Untersütztung von Standarts aus dem Rahmen zu fallen, bietet Canvas ab der Version 9.0 an. Natürlich gibt es viele Internet-Nutzer, die auch sehr alte Versionen von Browsern benutzen, allerdings sind diese für die Zielgruppe der online Spielenden Bevölkerung nicht besonders relevant; die meisten dieser alten Browser werden in Firmen mit veralteter IT-Technik benutzt, wo das Spielen am Computer sowieso verboten ist.
+TODO: bild vom support einbinden.
 \subsection{Frameworks}
+Canvas ist die mit Abstand am weitesten verbreitete der hier vorgestellten Technologien. Dies ist wohl vor allem der niedrigen Lernkurve und dem schnellen Einstieg mit frühen Erfolgen zu danken. Daher ist die Community sehr aktiv und hat unzählige Tools, Bibliotheken und Frameworks entwickelt. Die wichtigsten dieser Tools werden hier in Kürze vorgestellt:
+\subsubsection{KineticJS}
+KineticJS ist ein auf HTML5 Canvas spezialisiertes, quelloffenes Framework, d.h. es bietet keinen Technologie-Fallback an. Es abstrahiert die Canvas-API und bietet eine Objekt-Orientier
+te API an, in der \emph{Shapes} definiert werden, die zu Gruppen zusammengefasst werden und dann verschiedenen \emph{Layers} zugeordnet werden. Die Layer zusammen bilden den Szene-Graph
+en, der alle dargestellten Objekte beinhaltet. Die einzelnen Objekte der Szene können jetzt unabhängig animiert und transformiert werden. Dabei ist nicht nur Rotation und Translation mö
+glich, sondern z.b. auch Farb-Transformation u.Ä. Dazu kommt noch eine ereignis-basierte Architektur, mit der Animationen synchronisiert werden können.
+\paragraph{Beispiel}
+TODO: kineticjs-beispiel erstellen
+\paragraph{Verwendung} KineticJS wird bereits in vielen verschiedenen aktiven Projekten eingesetzt, auf http://kineticjs.com/ gibt es eine ganze Auswahl von verschiedenen Browser-Spiele
+n, die mit diesem Framework entwickelt wurden. Im Entwickler-Forum Stackoverflow gibt es hunderte Fragen zum Thema und über Google lassen sich Dutzende Tutorials finden, wie kleine Spie
+le mit KineticJS entwickelt werden können.
 \subsection{Beispiel}
 \subsection{Performance}
 \section{WebGL}
