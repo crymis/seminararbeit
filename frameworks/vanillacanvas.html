@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title>VanillaCanvas Example</title>
+	</head>
+	<body>
+		<canvas id="container" width="500" heigth="400"></canvas>
+		<script>
+			var container = document.getElementById("container");
+			var c = container.getContext("2d");
+			var lastRenderTime = (new Date()).getTime();
+
+			c.fillStyle = '#0000ff';
+
+			var gameObject = {
+				x: 5,
+				y: 5,
+				vecX: 2,
+				vecY: 2
+			};
+
+			function render() {
+				requestAnimationFrame(render);
+				var now = (new Date()).getTime();
+				var timeDiff = now - lastRenderTime;
+				lastRenderTime = now;
+				console.log(timeDiff);
+				gameObject.x += (gameObject.vecX / timeDiff);
+				gameObject.y += (gameObject.vecY / timeDiff);
+				c.clearRect(0, 0, 500, 400);
+				c.fillRect(gameObject.x, gameObject.y, 4, 4);
+			}
+
+			//start
+			requestAnimationFrame(render);
+			
+		</script>
+	</body>
+</html>

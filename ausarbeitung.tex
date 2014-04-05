@@ -3,9 +3,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
 \usepackage{hyperref}
-%\usepackage[margin=3cm]{geometry}
+\usepackage[margin=3cm]{geometry}
 \usepackage{graphicx}
-\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{ucs}
+\usepackage{listingsutf8}
 \usepackage{color}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -36,6 +38,8 @@
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
   keywordstyle=\color{blue},       % keyword style
   stringstyle=\color{mymauve},     % string literal style
+  extendedchars=\true,
+  inputencoding=utf8x
 }
 
 
@@ -95,7 +99,13 @@ TODO: quote wikipedia here
 \end{itemize}
 Damit ist es perfekt geeignet, um auch aufwendige 2D-Spiele darzustellen, die meistens aus Serien von Pixelgrafiken bestehen, die in schneller Folge eingeblendet werden (sogenannte \emph{Sprites}).
 \subsection{Unterstützung}
-TODO: quote caniuse.com
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=\textwidth]{assets/canvas_support.png} 
+	\end{center}
+	\caption{Canvas Unterstützung}
+	\label{canvas_support}
+\end{figure}
 Der 2D-Kontext wird von allen modernen Browsern unterstützt, Opera Mini bildet hier die einzige Ausnahme; sogar mobile Browser bieten die API durchgehend an. Sogar Internet-Explorer, der dafür bekannt ist, bei der Untersütztung von Standarts aus dem Rahmen zu fallen, bietet Canvas ab der Version 9.0 an. Natürlich gibt es viele Internet-Nutzer, die auch sehr alte Versionen von Browsern benutzen, allerdings sind diese für die Zielgruppe der online Spielenden Bevölkerung nicht besonders relevant; die meisten dieser alten Browser werden in Firmen mit veralteter IT-Technik benutzt, wo das Spielen am Computer sowieso verboten ist.
 TODO: bild vom support einbinden.
 \subsection{Frameworks}
@@ -106,11 +116,24 @@ te API an, in der \emph{Shapes} definiert werden, die zu Gruppen zusammengefasst
 en, der alle dargestellten Objekte beinhaltet. Die einzelnen Objekte der Szene können jetzt unabhängig animiert und transformiert werden. Dabei ist nicht nur Rotation und Translation mö
 glich, sondern z.b. auch Farb-Transformation u.Ä. Dazu kommt noch eine ereignis-basierte Architektur, mit der Animationen synchronisiert werden können.
 \paragraph{Beispiel}
-TODO: kineticjs-beispiel erstellen
+Anbei ein kleines Beispiel, wie der KintectJS-Code aussieht. In diesem Beispiel wird eine neue Szene (auch Stage genannt) angelegt und ein rotes Dreieck an einer zufälligen Position angezeigt.
+\lstinputlisting{assets/kineticjs_example.js}
 \paragraph{Verwendung} KineticJS wird bereits in vielen verschiedenen aktiven Projekten eingesetzt, auf http://kineticjs.com/ gibt es eine ganze Auswahl von verschiedenen Browser-Spiele
 n, die mit diesem Framework entwickelt wurden. Im Entwickler-Forum Stackoverflow gibt es hunderte Fragen zum Thema und über Google lassen sich Dutzende Tutorials finden, wie kleine Spie
 le mit KineticJS entwickelt werden können.
+\subsubsection{EaselJS}
+EaselJS ist ein Framework, dessen API an Flash angelehnt ist. So fällt der Übergang leichter. Darüber hinaus existieren verschiedene Tools, die alle auf (ehemalige) Flash-Entwickler abzielen. Zum Beispiel gibt es EaselFL, ein Flash-Fallback für alte Browser, die Canvas nicht unterstützen, oder Zoe, ein Exporter für SWF-Animationen in EaselJS-Spritesheets.
+\paragraph{TweenJS/SoundJS/PreloadJS} EaselJS kümmert sich nur um die reine Arbeit mit HTML5 Canvas, Funktionen wie Animationen und Transformationen oder Sounds sind in eigenen Modulen gekapselt:
+\begin{itemize}
+	\item \emph{TweenJS} für Animationen und Transformationen
+	\item \emph{SoundJS} für Arbeiten mit Sounds
+	\item \emph{PreloadJS} für das Managen und Laden von Bildern und Spiele-Inhalten
+\end{itemize}
+Damit ist die EaselJS-Suite nicht nur ein Framework für das Arbeiten mit Canvas, sondern bietet Werkzeuge, um ganze Browser-Spiele oder andere Anwendungen zu entwickeln.
 \subsection{Beispiel}
+Wie bereits erwähnt, ist die API von Canvas sehr schlicht und einfach zu erlernen. Dabei spielt sich alles im sogenannten Context-Objekt ab. Auf diesem können Methoden aufgerufen werden, um Bilder oder Linien auf  die Arbeitsfläche zu zeichnen. Um Animationen oder ähnliches zu realisieren, empfiehlt es sich, die Methode requestAnimation-Frame zu verwenden.
+\paragraph{requestAnimationFrame} Diese Methode bekommt als Parameter eine Funktion übergeben, die nach gewisser Zeit vom Browser aufgerufen wird. Üblicherweiße ruft diese Funktion rekursiv wieder requestAnimationFrame mit sich selbst als Parameter auf. Der Browser fungiert hier als Balancer und sorgt dafür, dass die Methode nicht öfter aufgerufen wird als nötig. So wird zum Beispiel die Framezahl pro Sekunde beschränkt und keine weiteren Aufrufe angefordert, wenn das Browser-Fenster nicht im Vordergrund ist. Um die Ablaufgeschwindigkeit des Spiels vom Verhalten der requestAnimationFrame-Methode zu entkoppeln, muss bei jedem Aufruf ermittelt werden, wie viel Zeit seit dem letzten Aufruf vergangen ist und zum Beispiel Bewegungs-Vektoren entsprechend angepasst werden.
+\lstinputlisting{assets/vanillacanvas_example.js}
 \subsection{Performance}
 \section{WebGL}
 \subsection{Technologie}

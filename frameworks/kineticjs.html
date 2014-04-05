@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>KineticJS Example</title>
+	</head>
+	<body>
+		<div id="container"></div>
+		<script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.1.0.min.js"></script>
+		<script>
+			var stage = new Kinetic.Stage({
+		        container: 'container',
+		        width: 578,
+		        height: 363
+		    });
+
+	      	var layer = new Kinetic.Layer();
+
+			var shape = new Kinetic.RegularPolygon({
+				x: Math.random() * stage.getWidth(),
+				y: Math.random() * stage.getHeight(),
+				sides: 3,
+				radius: 70,
+				fillRed: 255,
+				fillGreen: 0,
+				fillBlue: 0
+			});
+
+			layer.add(shape);
+
+			stage.add(layer);
+
+			console.log(shape);
+
+			var anim = new Kinetic.Animation(function(frame) {
+				var newX = shape.getX() + (Math.random() * frame.timeDiff / 2) - (frame.timeDiff / 4);
+
+				var newY = shape.getY() + (Math.random() * frame.timeDiff / 2) - (frame.timeDiff / 4);
+
+				shape.setX(newX);
+				shape.setY(newY);
+			}, layer);
+
+			anim.start();
+		</script>
+	</body>
+</html>
