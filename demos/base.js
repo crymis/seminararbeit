@@ -16,6 +16,72 @@ window.demoHeight = -1;
     var runningSimulation = null;
     var lastWatch = window.performance.now();
     var fpsCounter = 0;
+    var currentFPSValue = 0;
+    
+    function benchmarkAll() {
+    	var i = -1;
+	    var demos = $('#demo-nav li');
+	    
+	    function benchmarkNextDemo() {
+		    i++;
+		    demos[i].click();
+		    benchmarkDemo(function(result) {
+			    benchmarkNextDemo();
+		    });
+	    }
+	    	    
+	    benchmarkNextDemo();
+    }
+    
+    function benchmarkDemo(cb) {
+    
+    	console.log("Benchmarking Demo "+selectedDemo);
+    
+    	var startObjectCount = 50;
+    	var stepDelay = 5000;
+    	
+	    $('#fps').val("9999");
+	    $('#amountObjects').val(startObjectCount);
+	    $('#start-button').click();
+	    
+	    function amountFnUp(amountObjects, currentFPSValue) {
+		    return Math.floor(amountObjects + amountObjects * (currentFPSValue - 30) / 30 );
+	    }
+	    
+	    function amountFnDown(amountObjects, currentFPSValue) {
+		    return Math.floor(amountObjects * 0.95);
+	    }
+	    
+	    var state = "up";
+	    
+	    function nextBenchmarkStep() {
+			if(state == "up") {
+				if(currentFPSValue < 30) {
+					state = "down";
+					console.log("Upper bound reached: "+amountObjects+", finetuning...");
+					setTimeout(nextBenchmarkStep, stepDelay);
+				} else {
+					console.log(amountObjects+" objects passed, remaining FPS to break down: "+(currentFPSValue - 30));
+					$('#amountObjects').val(amountFnUp(amountObjects, currentFPSValue));
+					$('#start-button').click();
+					setTimeout(nextBenchmarkStep, stepDelay); 
+				}	
+			} else {
+				if(currentFPSValue > 30) {
+					console.log("Demo "+selectedDemo+" benchmarked: "+amountObjects+" Objects @ 30FPS");
+					cb(amountObjects);
+				} else {
+					console.log("finetuning...");
+					$('#amountObjects').val(amountFnDown(amountObjects, currentFPSValue));
+					$('#start-button').click();
+					setTimeout(nextBenchmarkStep, stepDelay); 
+				}
+			}    
+			
+	    }
+	    
+	    setTimeout(nextBenchmarkStep, stepDelay);
+    }
     
     function simulation(drawingFunction) {
         var objects = [];
@@ -66,6 +132,17 @@ window.demoHeight = -1;
             selectedDemo = $(this).attr("data-show");
         });
         
+        $('#benchmark-button').click(function (e){
+            $('#stop-button').click();
+            benchmarkDemo();
+            e.preventDefault();
+        });
+        
+        $('#benchmark-all-button').click(function (e){
+            benchmarkAll();
+            e.preventDefault();
+        });
+        
         $('#stop-button').click(function (e){
             $('#democontainer').html("");
             if(runningSimulation != null) {
@@ -93,7 +170,8 @@ window.demoHeight = -1;
         });
         
         setInterval(function() {
-            counterEl.html("<i class='glyphicon glyphicon-eye-open'></i> FPS: "+fpsWatcher());
+	        currentFPSValue = fpsWatcher();
+            counterEl.html("<i class='glyphicon glyphicon-eye-open'></i> FPS: "+currentFPSValue);
         }, fpsCounterInterval);
     });
 })(jQuery);

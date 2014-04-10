@@ -78,7 +78,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>2D Performance</h1>
+            <h1>2D Performance <button class="btn btn-success" id="benchmark-all-button">Benchmark all</button></h1>
             <div class="row">
                 <div class="col-md-4">
                     <ul class="nav nav-pills nav-stacked" id="demo-nav">
@@ -99,7 +99,8 @@
                             <input type="number" class="form-control" id="fps" value="30" placeholder="FPS">
                           </div>
                           <button class="btn btn-primary" id="start-button">Start</button>
-                            <button class="btn btn-danger" id="stop-button">Stop</button>
+                          <button class="btn btn-danger" id="stop-button">Stop</button>
+                          <button class="btn btn-success" id="benchmark-button">Benchmark</button>
                         </form>
                         <div id="democontainer"></div>
                         <p id="fps-counter"></p>
