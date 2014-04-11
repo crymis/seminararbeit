@@ -2,18 +2,27 @@ window.performanceDemos = {};
 window.demoWidth = -1;
 window.demoHeight = -1;
 
+// shim layer with setTimeout fallback
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
 (function($) {
     var selectedDemo = "canvas";
     
     var maxVec = 10;
     var amountObjects = 10;
-    var objectRadius = 10;
+    var objectRadius = 8;
     
-    var targetedF = 30;
     var fpsCounterInterval = 1000;
     
     //simulation-vars
-    var runningSimulation = null;
+    var runningSimulation = false;
     var lastWatch = window.performance.now();
     var fpsCounter = 0;
     var currentFPSValue = 0;
@@ -47,6 +56,7 @@ window.demoHeight = -1;
     }
     
     function benchmarkAll() {
+        $('#benchmark-all-button').removeClass("btn-success").addClass("btn-default");
     	var i = -1;
 	    var demos = $('#demo-nav li');
         var results = {};
@@ -60,6 +70,7 @@ window.demoHeight = -1;
 			    benchmarkNextDemo();
 		    });
             } else {
+                $('#benchmark-all-button').addClass("btn-success").removeClass("btn-default");
                 createBenchmarkChart(results);
             }
 	    }
@@ -68,13 +79,12 @@ window.demoHeight = -1;
     }
     
     function benchmarkDemo(cb) {
-    
+        $('#benchmark-button').removeClass("btn-success").addClass("btn-default");
     	console.log("Benchmarking Demo "+selectedDemo);
     
     	var startObjectCount = 50;
     	var stepDelay = 7000;
     	
-	    $('#fps').val("9999");
 	    $('#amountObjects').val(startObjectCount);
 	    $('#start-button').click();
 	    
@@ -103,7 +113,8 @@ window.demoHeight = -1;
 			} else {
 				if(currentFPSValue > 30) {
 					console.log("Demo "+selectedDemo+" benchmarked: "+amountObjects+" Objects @ 30FPS");
-					cb(amountObjects);
+                    $('#benchmark-button').addClass("btn-success").removeClass("btn-default");
+					if(typeof cb == "function") cb(amountObjects);
 				} else {
 					console.log("finetuning...");
 					$('#amountObjects').val(amountFnDown(amountObjects, currentFPSValue));
@@ -142,7 +153,12 @@ window.demoHeight = -1;
             drawingFunction(objects);
             fpsCounter++;
         }
-        runningSimulation = setInterval(tick, targetedF);
+        runningSimulation = true;
+        (function animloop(){
+          if(!runningSimulation) return;
+          requestAnimFrame(animloop);
+          tick();
+        })();
     }
     
     
@@ -159,9 +175,7 @@ window.demoHeight = -1;
         var counterEl = $('#fps-counter');
         $('#demo-nav li').click(function (){
             $(this).addClass("active").siblings().removeClass("active");
-            if(runningSimulation != null) {
-                clearInterval(runningSimulation);
-            }
+            runningSimulation = false;
             $('#democontainer').html("");
             selectedDemo = $(this).attr("data-show");
         });
@@ -179,26 +193,24 @@ window.demoHeight = -1;
         
         $('#stop-button').click(function (e){
             $('#democontainer').html("");
-            if(runningSimulation != null) {
-                clearInterval(runningSimulation);
-            }
+            runningSimulation = false;
             e.preventDefault();
         });
         
         $('#start-button').click(function (e){
             $('#democontainer').html("");
-            if(runningSimulation != null) {
-                clearInterval(runningSimulation);
-            }
+            runningSimulation = false;
             amountObjects = parseInt($('#amountObjects').val());
-            targetedF = 1000/parseInt($('#fps').val());
             window.demoWidth = $('#democontainer').width();
             window.demoHeight = $('#democontainer').height();
             //trigger demo
             if(typeof window.performanceDemos[selectedDemo] != "function") {
                 alert("Not yet implemented");
             } else {
-                window.performanceDemos[selectedDemo].call($('#democontainer'),$, simulation);
+                //wait for the current animation-loop to break
+                setTimeout(function() {
+                    window.performanceDemos[selectedDemo].call($('#democontainer'),$, simulation);
+                }, 1000);
             }
             e.preventDefault();
         });
