@@ -67,3 +67,10 @@ http://stackoverflow.com/questions/5882716/html5-canvas-vs-svg-vs-div
 http://joeloughton.com/blog/web-applications/svg-vs-canvas-performance/
 
 http://apike.ca/prog_svg_images.html
+
+
+WebGL-Verbreitung
+http://webglstats.com/
+
+komische ergebnisse: https://developer.tizen.org/dev-guide/2.2.1/org.tizen.web.appprogramming/html/guide/w3c_guide/graphics_guide/performance_comparison.htm
+
