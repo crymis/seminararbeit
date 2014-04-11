@@ -18,16 +18,50 @@ window.demoHeight = -1;
     var fpsCounter = 0;
     var currentFPSValue = 0;
     
+    function createBenchmarkChart(results) {
+        console.log(results);
+        
+        var c = $('<canvas width="'+window.demoWidth+'" height="'+window.demoHeight+'" />');
+        $('#benchmark_chart').html("").append(c);
+        
+        var data = {
+            labels : ["Canvas","WebGL","SVG","DOM"],
+            datasets : [
+                {
+                    fillColor : "rgba(220,220,220,0.5)",
+                    strokeColor : "rgba(220,220,220,1)",
+                    data : [results.canvas,
+                            results.webgl,
+                            results.svg,
+                            results.dom,
+                           ]
+                }
+            ]
+        };
+                
+        var options = {
+                
+        };
+        
+        var barChart = new Chart(c[0].getContext("2d")).Bar(data, options);
+    }
+    
     function benchmarkAll() {
     	var i = -1;
 	    var demos = $('#demo-nav li');
+        var results = {};
 	    
 	    function benchmarkNextDemo() {
 		    i++;
+            if(i < demos.length) {
 		    demos[i].click();
 		    benchmarkDemo(function(result) {
+                results[selectedDemo] = result;
 			    benchmarkNextDemo();
 		    });
+            } else {
+                createBenchmarkChart(results);
+            }
 	    }
 	    	    
 	    benchmarkNextDemo();
@@ -38,7 +72,7 @@ window.demoHeight = -1;
     	console.log("Benchmarking Demo "+selectedDemo);
     
     	var startObjectCount = 50;
-    	var stepDelay = 5000;
+    	var stepDelay = 7000;
     	
 	    $('#fps').val("9999");
 	    $('#amountObjects').val(startObjectCount);
