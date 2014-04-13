@@ -6,42 +6,13 @@
 \usepackage[margin=3cm]{geometry}
 \usepackage{graphicx}
 \usepackage{graphicx}
-\usepackage{ucs}
-\usepackage{listingsutf8}
+%\usepackage{ucs}
+\usepackage{minted}
 \usepackage{color}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
-
-\lstdefinelanguage{javascript}{
-  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-  keywordstyle=\color{blue}\bfseries,
-  ndkeywords={class, export, boolean, throw, implements, import, this},
-  ndkeywordstyle=\color{darkgray}\bfseries,
-  identifierstyle=\color{black},
-  sensitive=false,
-  comment=[l]{//},
-  morecomment=[s]{/*}{*/},
-  commentstyle=\color{mygray}\ttfamily,
-  stringstyle=\color{red}\ttfamily,
-  morestring=[b]',
-  morestring=[b]"
-}
-
-\lstset{ %
-  backgroundcolor=\color{white},   % choose the background color
-  basicstyle=\footnotesize,        % size of fonts used for the code
-  breaklines=true,                 % automatic line breaking only at whitespace
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
-  keywordstyle=\color{blue},       % keyword style
-  stringstyle=\color{mymauve},     % string literal style
-  extendedchars=\true,
-  inputencoding=utf8x
-}
-
 
 \title{2D-Zeichnen im Browser}
 \author{Johannes Reuter}
@@ -70,11 +41,15 @@ Gibt es Frameworks, die eine abstrakte, einfach zu verwendende API bereitstellen
 Ist es überhaupt möglich, die Technologie in der Praxis einzusetzen, oder befindet sich diese noch im Beta-Stadium? Da die Zielgruppe bei Browser-Spielen sehr groß ist und eine Vielzahl von verschiedenen Plattformen und Browsern verwendet wird, ist eine große Verbreitung und eine stabile Laufzeitumgebung auf möglichst vielen Geräten ein großes Plus wenn nicht sogar essentiell.
 \paragraph{Performance}
 Die Technologie selbst mag den anderen Anforderungen genügen, aber ist die Leistung ausreichend für einen flüssigen Spielablauf? Gerade im Browser, wo die Performance generell etwas schlechter wie z.B. bei Desktop-Anwendungen ist, muss auf diesen Punkt besonders viel Rücksicht genommen werden. Auch hier muss die Vielzahl der Endgeräte und Plattformen mit zum Teil sehr deutlich unterschiedlichen Rechenleistungen beachtet werden.
+\section{Performance-Messung}
+Zur Performance-Messung der verschiedenen Technologien habe ich eine einfache Beispiel-Anwendung in Javascript geschrieben: Objekte bewegen sich mit einem konstanten Vektor in einer begrenzten zweidimensionalen Welt und prallen an Wänden und Decken ab. Die Spiele-Physik ist ein eigenständiges Javascript-Modul, das auf eine belibiege Implementierung der Oberfläche zurückgreifen kann: Canvas, WebGL, SVG oder DOM. Das Oberflächen-Modul wurde für jede Technik neu implementiert. Um einen vergleichenden Wert zu ermitteln, wird die Anzahl der Objekte in der Spiele-Welt so lange erhöht, bis 30 FPS erreicht sind. Dieser Benchmark-Test wird dann in verschiedenen Browsern wiederholt, um Unterschiede zu ermitteln.
+\inputminted{javascript}{assets/benchmark1.js}
+\inputminted{javascript}{assets/benchmark2.js}
 \section{HTML5-Canvas}
 \subsection{Technologie}
 \paragraph{} Das Canvas-Element (englisch für Leinwand) und die entsprechende Javascript-API ist vom W3C spezifiziert und wird von allen großen Browser-Herstellern implementiert. Dadurch ist gesichert, dass ein Browser-Spiel, das das Canvas-Element zur Darstellung nutzt, in auch vielfältigen  Umgebungen korrekt funktioniert. Auch WebGL gehört zum Canvas-Standard, da das Canvas-Element verschiedene Kontexte unterstützt; dieses Kapitel behandelt jedoch ausschließlich den \glqq 2d\grqq-Kontext, der \glqq webgl\grqq-Kontext wird im Kapitel \emph{WebGL} behandelt.
 \paragraph{API} Die Canvas-API zeichnet sich besonders durch Schlichtheit und eine niedrige Lernkurve aus. Dabei ist der Zeichen-Kontext als Zustandsautomat implementiert, d.h. es werden nicht alle Informationen zum Zeichnen einer Linie in einem Methoden-Aufruf mitgegeben, sondern in mehreren. Erst wird der Zeichen-Stil konfiguriert, dann wird der Pfad definiert und dann die Linie gezeichnet.
-\begin{lstlisting}[language=javascript]
+\begin{minted}{javascript}
 context.strokeStyle = '#fa00ff'; //definiere Farbe
 context.lineWidth = 5; //definiere Stift-Breite
 context.lineCap = 'round'; //definiere Linien-Abschluss
@@ -82,7 +57,7 @@ context.beginPath(); //definiere pfad
 context.moveTo(0,0); //...
 context.lineTo(100,100); //...
 context.stroke(); //zeichne linie mit obigen einstellungen
-\end{lstlisting}
+\end{minted}
 Da in der Praxis meist mehrere Zeichenoperationen mit der selben Konfiguration durchgeführt werden, hat dies den Vorteil dass so Rechenleistung gespart werden kann und der Quellcode einfacher bleibt.
 \paragraph{Umfang} Mit dem Canvas-Element lassen sich unter anderem folgende Dinge zeichnen:
 TODO: quote wikipedia here
@@ -117,7 +92,7 @@ en, der alle dargestellten Objekte beinhaltet. Die einzelnen Objekte der Szene k
 glich, sondern z.b. auch Farb-Transformation u.Ä. Dazu kommt noch eine ereignis-basierte Architektur, mit der Animationen synchronisiert werden können.
 \paragraph{Beispiel}
 Anbei ein kleines Beispiel, wie der KintectJS-Code aussieht. In diesem Beispiel wird eine neue Szene (auch Stage genannt) angelegt und ein rotes Dreieck an einer zufälligen Position angezeigt.
-\lstinputlisting{assets/kineticjs_example.js}
+\inputminted{javascript}{assets/kineticjs_example.js}
 \paragraph{Verwendung} KineticJS wird bereits in vielen verschiedenen aktiven Projekten eingesetzt, auf http://kineticjs.com/ gibt es eine ganze Auswahl von verschiedenen Browser-Spiele
 n, die mit diesem Framework entwickelt wurden. Im Entwickler-Forum Stackoverflow gibt es hunderte Fragen zum Thema und über Google lassen sich Dutzende Tutorials finden, wie kleine Spie
 le mit KineticJS entwickelt werden können.
@@ -133,7 +108,7 @@ Damit ist die EaselJS-Suite nicht nur ein Framework für das Arbeiten mit Canvas
 \subsection{Beispiel}
 Wie bereits erwähnt, ist die API von Canvas sehr schlicht und einfach zu erlernen. Dabei spielt sich alles im sogenannten Context-Objekt ab. Auf diesem können Methoden aufgerufen werden, um Bilder oder Linien auf  die Arbeitsfläche zu zeichnen. Um Animationen oder ähnliches zu realisieren, empfiehlt es sich, die Methode requestAnimation-Frame zu verwenden.
 \paragraph{requestAnimationFrame} Diese Methode bekommt als Parameter eine Funktion übergeben, die nach gewisser Zeit vom Browser aufgerufen wird. Üblicherweiße ruft diese Funktion rekursiv wieder requestAnimationFrame mit sich selbst als Parameter auf. Der Browser fungiert hier als Balancer und sorgt dafür, dass die Methode nicht öfter aufgerufen wird als nötig. So wird zum Beispiel die Framezahl pro Sekunde beschränkt und keine weiteren Aufrufe angefordert, wenn das Browser-Fenster nicht im Vordergrund ist. Um die Ablaufgeschwindigkeit des Spiels vom Verhalten der requestAnimationFrame-Methode zu entkoppeln, muss bei jedem Aufruf ermittelt werden, wie viel Zeit seit dem letzten Aufruf vergangen ist und zum Beispiel Bewegungs-Vektoren entsprechend angepasst werden.
-\lstinputlisting{assets/vanillacanvas_example.js}
+\inputminted{javascript}{assets/vanillacanvas_example.js}
 \subsection{Performance}
 \section{WebGL}
 \subsection{Technologie}
