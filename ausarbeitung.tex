@@ -27,7 +27,9 @@
 
 \begin{document}
 \maketitle
+\newpage
 \tableofcontents
+\newpage
 \section{Motivation}
 2D-Computer-Spiele haben eine lange Tradition. Von alten Gameboy-Spielen bis hin zu modernen, grafik-gewaltigen Spielen auf modernen Spielekonsolen oder iPhone-Spiele gibt es tausende verschiedene Titel, die alle nur denkbaren Spielprinzipien, Zielgruppen und Themengebiete abdecken. Seit dem Einzug des Internets in den Massenmarkt gehören dazu auch Spiele im Browser.
 Diese benötigen keine Installation, sind immer auf dem neuesten Stand und daher sowohl bei Entwicklern als auch bei Kunden beliebt. Lange Zeit wurden diese Spiele fast ausnahmslos in Flash umgesetzt, was einige Probleme mit sich brachte. Zum einen muss ein Flash-Player auf dem Endgerät installiert sein; außerdem ist der Flash-Player eine proprietäre Software und daher der vollkommenen Kontrolle der Rechte-Inhaber unterworfen. Heute gibt es verschiedene offene, standardisierte Technologien, die es ermöglichen, 2D-Browserspiele ohne Einsatz kommerzieller Software zu entwickeln und anderen zur Verfügung zu stellen. Dieses Dokument gibt einen Überblick über den Stand der momentan verfügbaren Technologien und untersucht anhand Indikatoren wie Performance, Community, Browser-Unterstützung und Framework-Verfügbarkeit, welche Technologien sich heute besonders eignen, 2D-Spiele im Browser zu entwickeln.
@@ -43,21 +45,36 @@ Ist es überhaupt möglich, die Technologie in der Praxis einzusetzen, oder befi
 Die Technologie selbst mag den anderen Anforderungen genügen, aber ist die Leistung ausreichend für einen flüssigen Spielablauf? Gerade im Browser, wo die Performance generell etwas schlechter wie z.B. bei Desktop-Anwendungen ist, muss auf diesen Punkt besonders viel Rücksicht genommen werden. Auch hier muss die Vielzahl der Endgeräte und Plattformen mit zum Teil sehr deutlich unterschiedlichen Rechenleistungen beachtet werden.
 \section{Performance-Messung}
 Zur Performance-Messung der verschiedenen Technologien habe ich eine einfache Beispiel-Anwendung in Javascript geschrieben: Objekte bewegen sich mit einem konstanten Vektor in einer begrenzten zweidimensionalen Welt und prallen an Wänden und Decken ab. Die Spiele-Physik ist ein eigenständiges Javascript-Modul, das auf eine belibiege Implementierung der Oberfläche zurückgreifen kann: Canvas, WebGL, SVG oder DOM. Das Oberflächen-Modul wurde für jede Technik neu implementiert. Um einen vergleichenden Wert zu ermitteln, wird die Anzahl der Objekte in der Spiele-Welt so lange erhöht, bis 30 FPS erreicht sind. Dieser Benchmark-Test wird dann in verschiedenen Browsern wiederholt, um Unterschiede zu ermitteln.
-\inputminted{javascript}{assets/benchmark1.js}
-\inputminted{javascript}{assets/benchmark2.js}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=\textwidth]{assets/demo_screenshot.png} 
+	\end{center}
+	\caption{Performance Messung}
+	\label{performance_benchmark}
+\end{figure}
+\begin{figure}[h!]
+	\inputminted{javascript}{assets/benchmark1.js}
+	\caption{Spiele-Logik und Physik}
+	\label{benchmark1}
+\end{figure}
+Außerdem kann per Klick der Benchmark-Wert für alle Technologien nacheinander ermittelt werden. Diese Tests werden dann auf möglichst vielen verschiedenen Geräten und Browsern durchgeführt. So entsteht eine gute Übersicht, was eine Technologie leisten kann.
 \section{HTML5-Canvas}
 \subsection{Technologie}
 \paragraph{} Das Canvas-Element (englisch für Leinwand) und die entsprechende Javascript-API ist vom W3C spezifiziert und wird von allen großen Browser-Herstellern implementiert. Dadurch ist gesichert, dass ein Browser-Spiel, das das Canvas-Element zur Darstellung nutzt, in auch vielfältigen  Umgebungen korrekt funktioniert. Auch WebGL gehört zum Canvas-Standard, da das Canvas-Element verschiedene Kontexte unterstützt; dieses Kapitel behandelt jedoch ausschließlich den \glqq 2d\grqq-Kontext, der \glqq webgl\grqq-Kontext wird im Kapitel \emph{WebGL} behandelt.
 \paragraph{API} Die Canvas-API zeichnet sich besonders durch Schlichtheit und eine niedrige Lernkurve aus. Dabei ist der Zeichen-Kontext als Zustandsautomat implementiert, d.h. es werden nicht alle Informationen zum Zeichnen einer Linie in einem Methoden-Aufruf mitgegeben, sondern in mehreren. Erst wird der Zeichen-Stil konfiguriert, dann wird der Pfad definiert und dann die Linie gezeichnet.
-\begin{minted}{javascript}
-context.strokeStyle = '#fa00ff'; //definiere Farbe
-context.lineWidth = 5; //definiere Stift-Breite
-context.lineCap = 'round'; //definiere Linien-Abschluss
-context.beginPath(); //definiere pfad
-context.moveTo(0,0); //...
-context.lineTo(100,100); //...
-context.stroke(); //zeichne linie mit obigen einstellungen
-\end{minted}
+\begin{figure}[h!]
+	\begin{minted}{javascript}
+	context.strokeStyle = '#fa00ff'; //definiere Farbe
+	context.lineWidth = 5; //definiere Stift-Breite
+	context.lineCap = 'round'; //definiere Linien-Abschluss
+	context.beginPath(); //definiere pfad
+	context.moveTo(0,0); //...
+	context.lineTo(100,100); //...
+	context.stroke(); //zeichne linie mit obigen einstellungen
+	\end{minted}
+	\caption{Canvas-Beispiel}
+	\label{canvas-example}
+\end{figure}
 Da in der Praxis meist mehrere Zeichenoperationen mit der selben Konfiguration durchgeführt werden, hat dies den Vorteil dass so Rechenleistung gespart werden kann und der Quellcode einfacher bleibt.
 \paragraph{Umfang} Mit dem Canvas-Element lassen sich unter anderem folgende Dinge zeichnen:
 TODO: quote wikipedia here
@@ -92,7 +109,11 @@ en, der alle dargestellten Objekte beinhaltet. Die einzelnen Objekte der Szene k
 glich, sondern z.b. auch Farb-Transformation u.Ä. Dazu kommt noch eine ereignis-basierte Architektur, mit der Animationen synchronisiert werden können.
 \paragraph{Beispiel}
 Anbei ein kleines Beispiel, wie der KintectJS-Code aussieht. In diesem Beispiel wird eine neue Szene (auch Stage genannt) angelegt und ein rotes Dreieck an einer zufälligen Position angezeigt.
-\inputminted{javascript}{assets/kineticjs_example.js}
+\begin{figure}[h!]
+	\inputminted{javascript}{assets/kineticjs_example.js}
+	\caption{KineticJS Beispiel}
+	\label{kineticjs_example}
+\end{figure}
 \paragraph{Verwendung} KineticJS wird bereits in vielen verschiedenen aktiven Projekten eingesetzt, auf http://kineticjs.com/ gibt es eine ganze Auswahl von verschiedenen Browser-Spiele
 n, die mit diesem Framework entwickelt wurden. Im Entwickler-Forum Stackoverflow gibt es hunderte Fragen zum Thema und über Google lassen sich Dutzende Tutorials finden, wie kleine Spie
 le mit KineticJS entwickelt werden können.
@@ -108,10 +129,37 @@ Damit ist die EaselJS-Suite nicht nur ein Framework für das Arbeiten mit Canvas
 \subsection{Beispiel}
 Wie bereits erwähnt, ist die API von Canvas sehr schlicht und einfach zu erlernen. Dabei spielt sich alles im sogenannten Context-Objekt ab. Auf diesem können Methoden aufgerufen werden, um Bilder oder Linien auf  die Arbeitsfläche zu zeichnen. Um Animationen oder ähnliches zu realisieren, empfiehlt es sich, die Methode requestAnimation-Frame zu verwenden.
 \paragraph{requestAnimationFrame} Diese Methode bekommt als Parameter eine Funktion übergeben, die nach gewisser Zeit vom Browser aufgerufen wird. Üblicherweiße ruft diese Funktion rekursiv wieder requestAnimationFrame mit sich selbst als Parameter auf. Der Browser fungiert hier als Balancer und sorgt dafür, dass die Methode nicht öfter aufgerufen wird als nötig. So wird zum Beispiel die Framezahl pro Sekunde beschränkt und keine weiteren Aufrufe angefordert, wenn das Browser-Fenster nicht im Vordergrund ist. Um die Ablaufgeschwindigkeit des Spiels vom Verhalten der requestAnimationFrame-Methode zu entkoppeln, muss bei jedem Aufruf ermittelt werden, wie viel Zeit seit dem letzten Aufruf vergangen ist und zum Beispiel Bewegungs-Vektoren entsprechend angepasst werden.
-\inputminted{javascript}{assets/vanillacanvas_example.js}
+\begin{figure}[h!]
+	\inputminted{javascript}{assets/vanillacanvas_example.js}
+	\caption{Canvas-Beispiel}
+	\label{canvas_support2}
+\end{figure}
 \subsection{Performance}
+Mithilfe des oben erwähnten Benchmark-Tests wurden auf einem Desktop-Rechner 8500, auf einem Smartphone 230 und auf einem Macbook 4000 Objekte simultan bei 30FPS dargestellt. Damit ist Canvas auf jeden Fall geeignet, um auch komplexe Browser-Spiele für PCs und Laptops zu entwickeln. Einfache Spiele mit nur wenig Polygonen dürften auch auf Handys kein Problem sein. Allerdings ist die Zeichengeschwindigkeit auf dem Smartphone auch nicht konstant, sonder fällt manchmal stark ab. Für grafikgewaltige Handyspiele, die es mit nativen Apps bereits gibt, ist Canvas-HTML5 sicherlich nicht geeignet.
+\paragraph{Verbesserungen} Zu beachten ist, dass meine Implementierung einer Canvas-Renderfunktion recht naiv war. Es ist sicherlich möglich, hier durch verschiedene Tricks mehr Performance zu erreichen, größere Spiele lassen sich dadurch aber trotzdem nicht relasieren. Im folgenden sind verschiedene Techniken vorgestellt, um die Performance von Canvas-Spielen zu verbessern.
+\paragraph{Pre-Rendering in unsichtbares Canvas} Eine gängige Technik ist es, z.B. eine komplexe Hintergrund-Szenerie, die sich jeoch selten ändert, einmal zu rendern und in einem unsichtbaren zweiten Canvas-Element zwischenzuspeichern. Das Bild kann dann für jeden Frame in das sichtbare Canvas kopiert werden, was sehr effizient möglich ist.
+\paragraph{Neuzeichnen von Bereichen} Bei manchen Anwendungen ändert sich nicht bei jedem neuen Frame der gesamte Bildschirm, sondern nur ein kleiner Teilausschnitt (ein Ball bewegt sich über ein statisches Spielfeld). Hier wäre es möglich, nur den Teil des Canvas neu zu zeichnen, der sich auch tatsächlich verändert hat.
+\paragraph{Konfiguration des Zeichenautomaten nur ändern wenn nötig} Wie bereits im Kapitel \emph{API} vorgestellt, ist es möglich den Zeichenmodus einmal festzulegen und dann gleiche Zeichenoperationen durchzuführen. So ist es zum Beispiel deutlich performanter, erst alle gestrichelten Linien und dann alle durchgezogenen Linien in einer Szenerie zu zeichnen als immer abwechselnd, da so das Canvas-Element intern Optimierungen durchführen kann.
+\paragraph{Rechenaufwändige Effekte vermeiden} Built-In-Effekte wie weicher Schatten sind zwar sehr bequem zu verwenden, benötigen aber viel Rechenzeit. Am besten ist aus, auf solche Effekte ganz zu verzichten oder mit halb-transparenten Grafiken zu arbeiten.
+\paragraph{Ganzzahlige Koordinaten verwenden} Das Canvas-Element unterstützt zwar Subpixel-Rendering, allerdings sind diese sehr ineffizient, da die Farbe eines Pixels erst kompliziert berechnet werden muss. Verwendet man nur ganze Zahlen als Koordinaten besonders für Bilder, können die Pixel direkt eingefügt werden und es wird kostbare Ausführungszeit gespart.
 \section{WebGL}
 \subsection{Technologie}
+Genau wie HTML5-Canvas ist auch WebGL vom W3C spezifiziert und wird über den <canvas>-Tag ins Dokument eingebunden. Der Unterschied besteht darin, dass nicht das \emph{2d}-Kontext-Objekt, sonder das \emph{webgl}-Kontext-Objekt genutzt wird. Dieses stellt die (recht umfangreiche) API zur Verfügung, um mit WebGL zu arbeiten. Im Gegensatz zu Canvas, dessen API auf Schlichtheit und eine niedrige Lernkurve abzielt, bringt WebGL im Grunde die gesamte OpenGL-Bibliothek in den Browser. Dabei steht nicht eine schlanke API, sondern Performance im Vordergrund.
+\paragraph{3D oder 2D?} Entgegen der landläufigen Meinung ist WebGL \emph{keine} 3D-API, sondern unterstützt von Haus aus nur 2D-Zeichnungen. Allerdings ist es möglich, die 3D-Fähigkeit nachzurüsten und dabei trotzdem hochperformant zu bleiben, indem dieser Code direkt in GLSL implementiert werden kann
+\paragraph{Nativer Shader-Code} Die \emph{OpenGL Shading Language} ist eine an C angelehnte Sprache, um Programme zu schreiben, die direkt auf der Grafikkarte ausgeführt werden. Sie dienen zum Beispiel dazu, die Position von Objekten im dreidimensionalen Raum zu berechnen oder die Farbe oder Textur eines Objektes zu bestimmen. Auch in WebGL können solche GLSL-Shader geschrieben und direkt im Browser kompiliert werden. So können Grafikberechnungen auf der Grafikkarte hoch-parallelisiert ausgeführt werden, was für die enorme Performance von WebGL im Vergleich zu anderen Technologien verantwortlich ist. Hier im Shader-Code würde man die Logik für das Umrechnen von 3D-Objekte in 2D-Objekte vornhemen.
+\paragraph{Komplexe API} Dass WebGL so effizient arbeiten kann, muss der Entwickler einige Kompromisse eingehen. Die auf dem Gebiet der 3D-Spieleentwicklung für Desktop-PCs unerfahrenen Entwickler werden die API sicherlich als unintuitiv und sperrig empfinden. So müssen zum Zeichnen eines einfachen Quadrats folgende Schritte durchgeführt werden:
+\begin{itemize}
+	\item Vertex-Shader schreiben (Umrechung der Koordinaten)
+	\item Fragment-Shader schreiben (Erzeugen von Textur oder Farbe)
+	\item Shader kompilieren und linken
+	\item Daten-Buffer an Attribut für den Shader binden
+	\item Daten-Buffer mit Koordinaten für 2 Dreieicke füllen
+	\item bei Textur: Textur-Koordinaten-Buffer an Attribut für den Shader binden und füllen (auch hier für Dreieicke)
+	\item Dreiecke zeichnen
+\end{itemize}
+In der Praxis macht es Sinn, ein anstrahierendes Framework zu nutzen, dass man sich nicht mehr direkt mit der sperrigen WebGL-API auseinandersetzen muss. Allerdings sind dann auch keine Low-Level-Optimierungen möglich, die das Programm teilweise dramatisch beschleunigen können.
+Im Vergleich zur Canvas-API muss hier also viel Vorarbeit geleistet werden, bevor Resultate zu sehen sind.
+\paragraph{Canvas/WebGL-Hybrid} Mit WebGL sind zwar viele Dinge möglich, allerdings bietet es nur eine Low-Level-API. Zum Beispiel ist in der WebGL-Spezifikation kein nativer Text-Renderer vorgesehen. Natürlich ist es möglich, sich selbst einen Shader für diesen Zweck zu schreiben, allerdings gibt es die viel einfachere Lösung, gebrauch von der High-Level-API des Canvas-Elements zu machen und den Text in einem versteckten HTML5-Canvas zu rendern. Der Inhalt dieses Canvas kann dann als Textur in den WebGL-Kontext eingebunden und genutzt werden. Dies kann zum Beispiel im Lade-Zyklus des Spiels einmalig durchgeführt werden. So hat man alle Funktionen von HTML5-Canvas zur Verfügung, kann aber trotzdem von der gewaltigen Performance von WebGL Gebrauch machen.
 \subsection{Frameworks}
 \subsection{Beispiel}
 \subsection{Performance}

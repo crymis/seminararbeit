@@ -74,3 +74,5 @@ http://webglstats.com/
 
 komische ergebnisse: https://developer.tizen.org/dev-guide/2.2.1/org.tizen.web.appprogramming/html/guide/w3c_guide/graphics_guide/performance_comparison.htm
 
+
+http://www.html5rocks.com/de/tutorials/canvas/performance/

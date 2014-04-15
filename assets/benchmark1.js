@@ -18,7 +18,7 @@ function simulation(drawingFunction) {
 			objectToMove.move();
 		}
 		
-		//zeichne objekte mit austauschbarer implementierung (canvas, webgl, ...)
+		//zeichne objekte mit austauschbarer implementierung
 		drawingFunction(objects);
         }
 
