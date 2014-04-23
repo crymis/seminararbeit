@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[12pt]{scrreprt}
 
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
@@ -163,12 +163,23 @@ Im Vergleich zur Canvas-API muss hier also viel Vorarbeit geleistet werden, bevo
 \subsection{Frameworks}
 \subsection{Beispiel}
 \subsection{Performance}
-\section{DOM}
+\section{SVG}
 \subsection{Technologie}
+SVG (Scalable Vector Graphics) ist eine vom W3C entwickelte Spezifikation für eine XML-basierte Sprache zur Beschreibung von 2-dimensionalen Vektorgrafiken. Dabei handelt es sich um eine deklarative Beschreibung, das heißt, Interaktivität oder Animationen müssen von aussen gesteuert werden (zum Beispiel über JavaScript).
+\paragraph{SMIL} Es ist auch möglich, SVG-Animationen mit SMIL (Synchronized Multimedia Integration Language) zu beschreiben, das ebenfalls auf XML basiert. Allerdings eignet sich diese Sprache eher für statische Animations-Abläufe (Filme etc.) und ist für echtzeit-dynamische Browserspiele ungeeignet. Aus diesem Grund wird in diesem Dokument nicht tiefer darauf eingegangen.
+\paragraph{Integration} Alle modernen Browser unterstützen von Haus aus SVG, entweder in einer separaten .svg-Datei oder, für die Spiele-Entwicklung interessanter, direkt in das HTML der Website eingebettet. Mit den herkömmlichen JavaScript-APIs für den DOM-Zugriff lässt sich auch SVG steuern. Dabei muss beim Erstellen der SVG-Elemente nur der korrekte XML-Namespace angegeben werden.
+\begin{figure}[h!]
+	\inputminted{javascript}{assets/svg_example.js}
+	\caption{SVG Namespace-Elemente}
+	\label{svg_namespace_example}
+\end{figure}
+Wie im Beispiel \emph{SVG Namespace-Elemente} gut erkenntlich ist, macht es von JavaScript-Seite keinen Unterschied, ob es sich um ein herkömmliches DOM-Element oder ein SVG-Element handelt, die API mit Methoden wie createElement oder appendChild bleibt die gleiche.
+\paragraph{Umfang} Die SVG-API ist recht umfänglich, d.h. es müssen nicht grunsätzliche Funktionen wie Text-Rendering selbst implementiert werden. Zu den Fähigkeiten von SVG gehören das Darstellen von Polygonen, Kreisen und Rechtecken als auch Texte und eingebundene Rastergrafiken.
+\paragraph{Animation mit JavaScript} Da, wie bereits erwähnt, die Animationen in Spielen hoch dynamisch sind und ständig angepasst werden müssen, ist die einfachste Methode, SVG-Grafiken mit JavaScript zu animieren, die ständige Anpassung der Transformations-Parameter der einzelnen Elemente (Position, Drehung, ...). Deklarative Ansätze wie CSS3-Keyframe-Animationen oder SMIL eigenen sich höchstens für sich monoton wiederholende Hintergründe, nicht aber für Echtzeit-Spiele. Auch hier kann die HTML5-Methode \emph{requestAnimationFrame} genutzt werden, um eine sinnvolle Anpassungsrate des SVG-Dokuments zu gewährleisten.
 \subsection{Frameworks}
 \subsection{Beispiel}
 \subsection{Performance}
-\section{SVG}
+\section{DOM}
 \subsection{Technologie}
 \subsection{Frameworks}
 \subsection{Beispiel}
