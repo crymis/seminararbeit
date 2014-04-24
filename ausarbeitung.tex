@@ -179,11 +179,35 @@ Wie im Beispiel \emph{SVG Namespace-Elemente} gut erkenntlich ist, macht es von 
 \subsection{Frameworks}
 \subsection{Beispiel}
 \subsection{Performance}
+\newpage
 \section{DOM}
 \subsection{Technologie}
+Eine andere Möglichkeit, HTML-Elemente zur Darstellung von Spiele-Objekten zu verwenden ist natürlich die Verwendung der Standard-HTML-Elemente in Verbindung mit CSS-Styling.
+\paragraph{Support} Der größte Vorteil bei dieser Herangehensweise ist natürlich der in jedem Browser verfügbare Support. Wenn man sich für das Spiel auf einfache Rastergrafiken beschränkt und auf Rotation und ähnliches verzichtet, ist sogar CSS1 ausreichend. Allerdings untersützen alle modernen Browser CSS3 - dadurch sind auch Dinge wie Rotationen, einfache Filter, 3D-Transformationen, Schatten und viele andere Dinge möglich. Abbildung \ref{css_transforms_support} zeigt die Browser-Unterstützung für CSS-Transforms. Dazu gehören Rotationen, Skalierungen und freie Matrix-Transformationen. 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=\textwidth]{assets/css_transforms_support.png} 
+	\end{center}
+	\caption{CSS3-Transforms Unterstützung}
+	\label{css_transforms_support}
+\end{figure}
+\paragraph{Programmierung} Auch die Programmierung per JavaScript ist sehr einfach. Hier können genau wie bei SVG die APIs zur HTML-Element-Manipulation genutzt werden. Die Position eines Objektes zum Beispiel lässt sich folgendermaßen über die CSS-Attribute \emph{top} und \emph{left} steuern.
+\begin{figure}[h!]
+	\begin{minted}{javascript}
+//setze x-position
+imgEl.style.left = xPos + "px";
+//setze y-position
+imgEl.style.top = yPos + "px";
+	\end{minted}
+	\caption{DOM-Position}
+	\label{dom_position_example}
+\end{figure}
+\paragraph{CSS Hardware-Unterstützung} CSS3-Transformationen werden in vielen modernen Browsern mit \emph{Hardware-Unterstützung}, also mithilfe der Grafikkarte berechnet. Das beschleunigt rechenaufwändige Effekte wie Schatten oder 3D-Transformationen enorm.
+\paragraph{Interaktivität} Da Spiele-Objekte hier auch DOM-Elemente sind, ist es problemlos möglich, Events wie Klick oder Mouse-Over zu binden und für die Interaktivität im Spiel zu nutzen. Bei Canvas oder WebGL beispielweise muss selbst berechnet werden, wann und ob solche Ereignisse eintreten.
 \subsection{Frameworks}
 \subsection{Beispiel}
 \subsection{Performance}
+\subsection{Verwendung} Zusammenfassend lässt sich sagen, dass CSS-Spiele zwar sehr viele Gestaltungsmöglichkeiten mit sich bringt, es aber aufgrund der performance-technischen Beschränkungen der Arbeit mit dem DOM nicht möglich ist, viele separate Objekte darzustellen. Für einfache Spiele, die nur wenige Objekte gleichzeitig anzeigen, lohnt sich jedoch ein Blick auf diese Technik auf jeden Fall, da Abwärts-Kompatibilität gewährleistet und die Programmierung nicht sehr aufwendig ist.
 \section{Fazit}
 \section{Ausblick}
 \end{document}
