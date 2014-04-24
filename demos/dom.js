@@ -20,7 +20,8 @@ window.performanceDemos["dom"] = function($, callback) {
         for(var i=0;i<objects.length;i++) {
             var objectToDraw = objects[i];
             var correspondingDOMEl = domObjects[i];
-            correspondingDOMEl.setAttribute("style","left:"+objectToDraw.x+"px;top:"+objectToDraw.y+"px");
+	    correspondingDOMEl.style.left = objectToDraw.x+"px";
+	    correspondingDOMEl.style.top = objectToDraw.y+"px";
         }
     }
     
