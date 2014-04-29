@@ -161,7 +161,12 @@ In der Praxis macht es Sinn, ein anstrahierendes Framework zu nutzen, dass man s
 Im Vergleich zur Canvas-API muss hier also viel Vorarbeit geleistet werden, bevor Resultate zu sehen sind.
 \paragraph{Canvas/WebGL-Hybrid} Mit WebGL sind zwar viele Dinge möglich, allerdings bietet es nur eine Low-Level-API. Zum Beispiel ist in der WebGL-Spezifikation kein nativer Text-Renderer vorgesehen. Natürlich ist es möglich, sich selbst einen Shader für diesen Zweck zu schreiben, allerdings gibt es die viel einfachere Lösung, gebrauch von der High-Level-API des Canvas-Elements zu machen und den Text in einem versteckten HTML5-Canvas zu rendern. Der Inhalt dieses Canvas kann dann als Textur in den WebGL-Kontext eingebunden und genutzt werden. Dies kann zum Beispiel im Lade-Zyklus des Spiels einmalig durchgeführt werden. So hat man alle Funktionen von HTML5-Canvas zur Verfügung, kann aber trotzdem von der gewaltigen Performance von WebGL Gebrauch machen.
 \subsection{Frameworks}
+\subsubsection{Pixi.js} Anders als die bisher vorgestellten Frameworks ist Pixi.js nicht nur ein vereinfachender API-Wrapper für die Zeichen-Technologie selbst, sondern eine komplette Game-Engine. Daher sind auch Funktionen wie Kollisions-Erkennung, Multi-Plattform-Support (Mobile, PC), Multi-Touch, ein Asset-Loader und vieles mehr eingebaut. Dieser Abschnitt befasst sich aber hauptsächlich mit dem eingebauten Renderer.
+\paragraph{Canvas-Fallback} Der Pixi.js-Renderer untersützt sowohl WebGL als auch Canvas; falls möglich, wird WebGL genutzt. So soll schlicht die Reichweite der pixi.js-Spiele erhöht werden, da viele Geräte in Umlauf zwar eine rudimentäre Canvas-Unterstützung, aber noch keinen Support für WebGL haben.
+\paragraph{Text-Rendering} Der oben erklärte Trick, die Canvas-API zu nutzen, um Text in Bitmap-Texturen für WebGL umzuwandeln, wird auch von pixi.js genutzt.
+\paragraph{Performance-Tricks} der Pixi.js-Renderer setzt viele Tricks ein, um die Zeichen-Performance möglichst hoch zu halten. Diese Tricks sind im Abschnitt Performance genauer erklärt.
 \subsection{Beispiel}
+Da Pixi.js eine komplette Game-Engine ist, ist die API sehr abstrakt gehalten - man steuert \emph{Game-Objects} und Viewports, das wirkliche Zeichnen in das Browser-Fenster spielt eine untergeordnete Rolle. Zum ausbalancieren der Game-Ticks wird auch hier die Methode requestAnimationFrame genutzt.
 \subsection{Performance}
 \section{SVG}
 \subsection{Technologie}
