@@ -177,6 +177,28 @@ Wie im Beispiel \emph{SVG Namespace-Elemente} gut erkenntlich ist, macht es von 
 \paragraph{Umfang} Die SVG-API ist recht umfänglich, d.h. es müssen nicht grunsätzliche Funktionen wie Text-Rendering selbst implementiert werden. Zu den Fähigkeiten von SVG gehören das Darstellen von Polygonen, Kreisen und Rechtecken als auch Texte und eingebundene Rastergrafiken.
 \paragraph{Animation mit JavaScript} Da, wie bereits erwähnt, die Animationen in Spielen hoch dynamisch sind und ständig angepasst werden müssen, ist die einfachste Methode, SVG-Grafiken mit JavaScript zu animieren, die ständige Anpassung der Transformations-Parameter der einzelnen Elemente (Position, Drehung, ...). Deklarative Ansätze wie CSS3-Keyframe-Animationen oder SMIL eigenen sich höchstens für sich monoton wiederholende Hintergründe, nicht aber für Echtzeit-Spiele. Auch hier kann die HTML5-Methode \emph{requestAnimationFrame} genutzt werden, um eine sinnvolle Anpassungsrate des SVG-Dokuments zu gewährleisten.
 \subsection{Frameworks}
+\subsubsection{RaphaelJS}
+RaphaelJS ist eine Abstraktions-Schicht für die SVG-API. Dabei wird ein \emph{Wrapper} sowohl für die SVG-Zeichenfunktionen als auch für die HTML-Eventhandler geboten. Hinzu kommen viele Hilfsmethoden, die das Erstellen von komplexen Grafiken deutlich beschleunigen. Vor allem für die Erstellung von Animationen aller Art ist die JavaScript-API von RaphaelJS sehr praktisch, da die XML-Animations-Notation in SVG sehr umständlich und schlecht lesbar ist.
+\paragraph{Kompatibilität} Ein weiterer Vorteil von RaphaelJS ist die eingebaute Untersützung für ältere Browser; für frühere Versionen des Internet-Explorers wird ein Fallback auf \emph{VML} durchgeführt.
+\paragraph{Verwendung} RaphaelJS wird genau wie SVG selbst meistens für Diagramme und ähnliche, statische Zwecke eingesetzt, es gibt aber auch ein auf RaphaelJS basierndes Browserspiel, dass die Technik erfolgreich einsetzt: https://github.com/petehamilton/gravitas
+\paragraph{Beispiel}
+Wie im Beispiel zu sehen ist, muss man sich bei RaphaelJS an keiner Stelle mit Dingen wie HTML-Elementen oder SVG-Namespaces auseinandersetzen - RaphaelJS kapselt den Zugriff auf den DOM und bietet eine saubere, verständliche und leicht zu nutzende API an, für die die Programmier-Sprache nicht gewechselt werden muss. 
+\begin{figure}[h!]
+	\begin{minted}{javascript}
+// Creates canvas 320 × 200 at 10, 50
+var paper = Raphael(10, 50, 320, 200);
+
+// Creates circle at x = 50, y = 40, with radius 10
+var circle = paper.circle(50, 40, 10);
+// Sets the fill attribute of the circle to red (#f00)
+circle.attr("fill", "#f00");
+
+// Sets the stroke attribute of the circle to white
+circle.attr("stroke", "#fff");	
+	\end{minted}
+	\caption{KineticJS Beispiel}
+	\label{kineticjs_example}
+\end{figure}
 \subsection{Beispiel}
 \subsection{Performance}
 \newpage
