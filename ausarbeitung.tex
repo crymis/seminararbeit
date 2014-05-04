@@ -145,6 +145,11 @@ Mithilfe des oben erwähnten Benchmark-Tests wurden auf einem Desktop-Rechner 85
 \paragraph{Konfiguration des Zeichenautomaten nur ändern wenn nötig} Wie bereits im Kapitel \emph{API} vorgestellt, ist es möglich den Zeichenmodus einmal festzulegen und dann gleiche Zeichenoperationen durchzuführen. So ist es zum Beispiel deutlich performanter, erst alle gestrichelten Linien und dann alle durchgezogenen Linien in einer Szenerie zu zeichnen als immer abwechselnd, da so das Canvas-Element intern Optimierungen durchführen kann.
 \paragraph{Rechenaufwändige Effekte vermeiden} Built-In-Effekte wie weicher Schatten sind zwar sehr bequem zu verwenden, benötigen aber viel Rechenzeit. Am besten ist aus, auf solche Effekte ganz zu verzichten oder mit halb-transparenten Grafiken zu arbeiten.
 \paragraph{Ganzzahlige Koordinaten verwenden} Das Canvas-Element unterstützt zwar Subpixel-Rendering, allerdings sind diese sehr ineffizient, da die Farbe eines Pixels erst kompliziert berechnet werden muss. Verwendet man nur ganze Zahlen als Koordinaten besonders für Bilder, können die Pixel direkt eingefügt werden und es wird kostbare Ausführungszeit gespart.
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{assets/browser_comp_canvas} 
+	\caption{Browser-Vergleich Canvas}
+	\label{browser_comp_canvas}
+\end{figure}
 \newpage
 \section{WebGL}
 \subsection{Technologie}
@@ -211,6 +216,11 @@ Dadurch, dass die Anzahl der Objekte immer konstant bleibt, ist ein statischer P
 \paragraph{Dataflow} Bei der Optimierung von WebGL-Anwendungen ist es wichtig, zu verstehen, wie eine GPU arbeitet. Eine GPU verarbeitet einen Strom von Daten - am effizientesten ist es, diesen Strom so selten wie möglich zu unterbrechen oder zu verlangsamen. Zum Beispiel benötigt der Upload einer Textur in den Grafikspeicher einige Zeit. Wenn also direkt nach einem Textur-Upload ein Zeichenbefehl für diese Textur übetragen wird, blockiert die GPU, bis die Textur vollständig gelesen wird. Also sollten zuerst andere Zeichen-Operationen durchgeführt werden, bis die Textur vollständig geladen ist. Ein anderes Beispiel sind sogenannte \emph{Readbacks}, bei denen Daten von der GPU zurück in den JavaScript-Kontext geladen werden. Für diese Operation muss die JavaScript-Ausführung blockiert werden, bis die GPU die Daten geliefert hat. In dieser Zeit können keine Zeichen-Operationen von JavaScript and die Grafikkarte übermittelt werden und der Daten-Strom setzt aus. Daher sollten Readbacks soweit wie möglich vermieden werden.
 \paragraph{Ausblick} Da durch WebGL alle Fähigkeiten einer Grafikkarte in JavaScript offen gelegt werden, ist eine sehr genaue Steuerung und damit auch Optimierung des Zeichenprozesses möglich. Diese genau zu erklären, würde den Rahmen in dieser Ausarbeitung sprengen. Zusammenfassend lässt sich sagen, dass WebGL zwar kompliziert und die dahinterstehenden Konzepte umfangreich und schwierig zu verstehen sind, die Technologie selbst aber dadurch in Sachen Performance den anderen vorgestellten Technologien deutlich überlegen ist. 
 %TODO: quote https://docs.google.com/presentation/d/12AGAUmElB0oOBgbEEBfhABkIMCL3CUX7kdAPLuwZ964
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{assets/browser_comp_webgl} 
+	\caption{Browser-Vergleich WebGL}
+	\label{browser_comp_webgl}
+\end{figure}
 \newpage
 \section{SVG}
 \subsection{Technologie}
@@ -259,6 +269,11 @@ Das Arbeiten mit SVG ist sehr einfach, es muss nur für jedes Objekt im Spiel ei
 \subsection{Performance}
 %http://smus.com/canvas-vs-svg-performance/
 Im Benchmark-Test schaffte die SVG-Implementierung nur 500 Objekte, wo WebGL 80.000 bzw. Canvas 9.000 rendern konnte. Das macht klar, dass SVG ungeeignet ist für Spiele mit vielen Objekten, die ständig neu gezeichnet werden müssen. Dennoch gibt es Spiele wie das oben erwähnte Gravitas, die erfolgreich SVG zur Darstellung einsetzen. Das hat vor allem damit zu tun, dass es auch im Spiele-Umfeld Anwendungen gibt, bei denen nur wenige Objekte gleichzeitig dargestellt werden, bzw. bei denen nur selten Neu-Zeichnungen durchgeführt werden. Ausserhalb des Spiele-Usecases eignet sich SVG daher vor allem für Statistiken oder Karten-Darstellungen. Ein Performance-Gewinn in SVG-Spielen ist vor allem dadurch möglich, das Neu-Zeichnen der kompletten Fläche zu verhindern und den Szene-Graph wie auch die Transformations-Anweisungen so aufzubauen, dass Optimierungen angewendet werden können. Wie bereits erwähnt ist die sorgfältige Definition von gleichmäßigen Bewegungen z.B. in einem Spiel wie Super-Mario, in dem sich Bewegungsrichtung und -art von Objekten ständig innerhalb von Sekunden ändert, nicht möglich.
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{assets/browser_comp_svg} 
+	\caption{Browser-Vergleich SVG}
+	\label{browser_comp_svg}
+\end{figure}
 \newpage
 \section{DOM}
 \subsection{Technologie}
@@ -300,6 +315,11 @@ Die Arbeit mit herkömmlichen DOM-Elementen gleicht dem Ansatz von SVG stark. Es
 \subsection{Performance}
 Die DOM-Implementierung schafft je nach Browser zwischen 450 und 500 Objekten, wenn Canvas 9.000 oder WebGL 80.000 schafft. Damit rangiert sie noch knapp unter der Performance von SVG und ist wie SVG selbst nicht geeignet, schnelle, interaktive Spiele darzustellen. Jedoch wurde auch hier genau wie bei SVG auf die Verwendung von CSS-Transitionen oder ähnliches verzichtet, was bei gleichförmigen Bewegungen auf jeden Fall einen Performance-Gewinn bringen kann.
 \paragraph{Verwendung} Zusammenfassend lässt sich sagen, dass CSS-Spiele zwar sehr viele Gestaltungsmöglichkeiten mit sich bringt, es aber aufgrund der performance-technischen Beschränkungen der Arbeit mit dem DOM nicht möglich ist, viele separate Objekte darzustellen. Für einfache Spiele, die nur wenige Objekte gleichzeitig anzeigen, lohnt sich jedoch ein Blick auf diese Technik auf jeden Fall, da Abwärts-Kompatibilität gewährleistet und die Programmierung nicht sehr aufwendig ist.
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{assets/browser_comp_dom} 
+	\caption{Browser-Vergleich DOM}
+	\label{browser_comp_dom}
+\end{figure}
 \section{Fazit}
 Abschließend lässt sich sagen, dass alle hier vorgestellten Technologien Vor- und Nachteile haben, genauso wie Einsatzgebiete, in denen sie sehr gut verwendet werden können. SVG und DOM können mit sehr wenig Aufwand und einer schlichten API sehr schöne Grafiken und Animationen mit vielen und komplexen Effekten darstellen. Dafür sind diese Techologien nicht geeignet für schnelle Spiele, bei denen sich viele Objekte unvorhersehbar bewegen. Hier bieten sich Canvas oder WebGL an. Canvas hat eine stärkere Verbreitung als WebGL und eine einfache API mit einer flachen Lernkurve, die den Einstieg leicht macht. WebGL bietet dagegen die volle Komplexität von OpenGL, was den Einstieg schwierig macht. Dafür sind die Möglichkeiten nur durch die Hardware selbst begrenzt - bei ordentlicher Optimierung ist die Performance von WebGL unerreicht, wobei sich gefragt werden muss, ob dieser Vorteil schwerer wiegt als die Vorteile von Canvas; für viele Anwendungszwecke reicht die Performance von Canvas aus und man kann die größere Entwicklungsgeschwindigkeit nutzen. Welche Technologie eingesetzt werden soll, hängt stark vom Verwendungszweck ab; Canvas bietet jedoch einen guten Kompromiss aus beiden Welten; eine \emph{High Level API} für einfaches Arbeiten mit komplexen Effekten und trotzdem eine gute Performance, die für viele Anwendungszwecke ausreicht.
 \section{Ausblick}
