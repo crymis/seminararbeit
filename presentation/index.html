@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<!--[if IE 6]>
+<html id="ie6" lang="en-US" class="ie ie6 lt-ie9">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="en-US" class="ie ie7 lt-ie9">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="en-US" class="ie ie8 lt-ie9">
+<![endif]-->
+<!--[if gte IE 9]>
+<html lang="en-US" class="ie ie9">
+<![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="en-US" class="">
+<!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0 minimal-ui">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<title>Seminararbeit</title>
+	<link rel="stylesheet" href="assets/css/reset.css">
+	<link rel="stylesheet" href="css/flowtime.css">
+	<link rel="stylesheet" href="css/themes/default.css">
+	<link rel="stylesheet" href="assets/css/prism.css">
+</head>
+<body class="">
+    <div class="flowtime">
+        <!-- Einführung -->
+        <div class="ft-section">
+            <div class="ft-page">
+                <div class="stack-center">
+					<div class="stacked-center">
+                        <h1>2D-Zeichnen im Browser</h1>
+                        <p>Eine Präsentation von Johannes Reuter</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ft-page">
+                <h1>2D-Spiele</h1>
+                <ul class="big-ul">
+                    <li>Seit 1958</li>
+                    <li>Viele Plattformen/Spiele</li>
+                    <li>Später: Spiele im Browser durch Flash</li>
+                </ul>
+                 <div class="slideshow">
+                    <!-- http://commons.wikimedia.org/wiki/File:Spacewar1.png -->
+                    <img src="assets/img/Spacewar1.png"/>
+                    <!-- http://en.wikipedia.org/wiki/File:Supermarioworld.jpg -->
+                    <img src="assets/img/supermarioworld.jpg"/>
+                    <!-- http://www.juggernart.com/games/free-online-platformer-games/mirrors-edge-flash_de.html -->
+                    <img src="assets/img/mirrors-edge-flash.jpg"/>
+                </div>
+            </div>
+            <div class="ft-page">
+                <h1>Flash</h1>
+                <ul class="big-ul">
+                    <li>Proprietäre Plattform</li>
+                    <li>Macromedia, später Adobe</li>
+                    <li>nicht opensource</li>
+                    <li>Weiterentwicklung/Features von Adobe bestimmt</li>
+                    <li>Entwicklungsumgebung (Flash Professional) kostenpflichtig</li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Alternative</h1>
+                <ul class="big-ul">
+                    <li>Eine Spezifikation, viele Implementierungen</li>
+                    <li>Transparenter Spezifikationsprozess</li>
+                    <li>jeder kann Vorschläge einreichen</li>
+                    <li>W3C, WHATWG, Khronos Group</li>
+                    <li>Gleich mehrere Alternativen zu Flash</li>
+                    <li class="ft-fragment">4 Stück hier vorgestellt</li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Anforderungen an die Technologie</h1>
+                <dl class="big-dl">
+                    <dt>Bibliotheken</dt>
+                    <dd>Vereinfachte API, Community</dd>
+                    <dt>Unterstützung</dt>
+                    <dd>Kompatible Browser/Geräte</dd>
+                    <dt>Performance <small class="ft-fragment">praktisches Beispiel am Ende</small></dt>
+                    <dd>Im Bezug auf Echtzeit 2D-Spiele</dd>
+                </dl>
+            </div>
+        </div>
+        <!-- Canvas -->
+        <div class="ft-section">
+            <div class="ft-page">
+                <h1>Technologie 1</h1>
+                <div class="stack-center ft-fragment">
+					<div class="stacked-center">
+                        <!-- http://commons.wikimedia.org/wiki/File:Html5_canvas_logo.png -->
+                        <img src="assets/img/Html5_canvas_logo.png">
+                        <h1>Canvas</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="ft-page">
+                <h1>Fakten</h1>
+                <ul class="big-ul">
+                    <li>Spezifikation durch WHATWG</li>
+                    <li>Direkte Pixelmanipulation</li>
+                    <li>JavaScript</li>
+                    <li>Sehr einfache API -> Niedrige Lernkurve</li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Beispiel</h1>
+                <ul class="big-ul">
+                    <li>Zustandsautomat</li>
+                    <li>Linien, Rechtecke, Kreise, Rastergrafiken, ...</li>
+                </ul>
+                <pre><code class="language-javascript big-code">context.strokeStyle = '#fa00ff'; //definiere Farbe
+context.lineWidth = 5; //definiere Stift-Breite
+context.lineCap = 'round'; //definiere Linien-Abschluss
+context.beginPath(); //definiere pfad
+context.moveTo(0,0); //...
+context.lineTo(100,100); //...
+context.stroke(); //zeichne linie mit obigen einstellungen</code></pre>
+            </div>
+            <div class="ft-page">
+                <h1>Community</h1>
+                <ul class="big-ul">
+                    <li>Niedrige Lernkurve: sehr beliebt (vor allem bei Anfängern)</li>
+                    <li>83.000 Fragen auf Stackoverflow; 10.000 Projekte auf Github</li>
+                    <li>Viele Bibliotheken, z.B.
+                        <ul>
+                            <li>KinectJS: <small>Szene-Graph (statt direkter Pixel-Manipulation)</small></li>
+                            <li>EaselJS: <small>Für Flash-Umsteiger (ähnliche API)</small></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Unterstützung</h1>
+                <ul class="big-ul">
+                    <li>Alle modernen Browser</li>
+                    <li>viele Mobilgeräte</li>
+                </ul>
+                <div class="slideshow">
+                    <img src="assets/img/canvas_support.png">
+                </div>
+            </div>
+        </div>
+        <!-- WebGL -->
+        <div class="ft-section">
+            <div class="ft-page">
+                <h1>Technologie 2</h1>
+                <div class="stack-center ft-fragment">
+					<div class="stacked-center">
+                        <!-- http://cristinajungdesign.blogspot.de/2013/02/webgl.html -->
+                        <img src="assets/img/webgl_logo.png.scaled696.png">
+                    </div>
+                </div>
+            </div>
+            <div class="ft-page">
+                <h1>Fakten</h1>
+                <ul class="big-ul">
+                    <li>Spezifikation durch Khronos Group und Mozilla</li>
+                    <li>OpenGL ES 2.0 im Browser</li>
+                    <li>JavaScript</li>
+                    <li>Mächtig, aber komplex</li>
+                    <li>Rendering direkt auf der Grafikkarte</li>
+                </ul>
+            </div>
+        </div>
+        <!-- SVG -->
+        <div class="ft-section">
+            <div class="ft-page">
+                <h1>Technologie 3</h1>
+                <div class="stack-center ft-fragment">
+					<div class="stacked-center">
+                        <!-- http://commons.wikimedia.org/wiki/File:SVG_logo.svg -->
+                        <img src="assets/img/SVG_logo.svg.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- DOM -->
+        <div class="ft-section">
+            <div class="ft-page">
+                <h1>Technologie 4</h1>
+                <div class="stack-center ft-fragment">
+					<div class="stacked-center">
+                        <!-- http://commons.wikimedia.org/wiki/File:HTML5_logo_and_wordmark.svg -->
+                        <img src="assets/img/HTML5_logo_and_wordmark.svg.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+	<script src="js/brav1toolbox.js"></script>
+	<script src="js/flowtime.js"></script>
+	<script src="assets/js/prism.js"></script>
+
+	<script type="text/javascript">
+        // Configuration API test
+		Flowtime.showProgress(true);
+		// Flowtime.fragmentsOnSide(true);
+		// Flowtime.fragmentsOnBack(true);
+		// Flowtime.useHistory(false);
+		// Flowtime.slideInPx(true);
+		// Flowtime.sectionsSlideToTop(true);
+		// Flowtime.gridNavigation(false);
+		// Flowtime.useOverviewVariant(true);
+		//Flowtime.parallaxInPx(true);
+		//
+		// event management
+		// Flowtime.addEventListener("flowtimenavigation", onNavigation, false);
+		Flowtime.onNavigation(onNavigation);
+		function onNavigation(e)
+		{
+			// console.log(cacheTitle + ' > ' + document.title.replace("Flowtime.js | ", ""));
+			//cacheTitle = document.title.replace("Flowtime.js | ", "");
+			//console.log('section', e.section, 'sectionIndex', e.sectionIndex);
+			//console.log('page', e.page, 'pageIndex', e.);
+			//console.log('pastSectionIndex', e.pastSectionIndex, 'pastPageIndex', e.pastPageIndex);
+			//console.log('prevSection', e.prevSection);
+			//console.log('nextSection', e.nextSection);
+			//console.log('prevPage', e.prevPage);
+			//console.log('nextPage', e.nextPage);
+			//console.log('fragment', e.fragment, + 'fragmentIndex', e.fragmentIndex);
+			//console.log("isOverview", e.isOverview);
+			//console.log('progress:', e.progress, 'total:', e.total);
+			// var value = Math.round(e.progress * 100 / e.total);
+			// console.log('Completion: ' + value + '%');
+		}
+		// starts the application with configuration options
+		Flowtime.start();
+	</script>
+</body>
+</html>
