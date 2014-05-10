@@ -62,8 +62,9 @@ Außerdem kann per Klick der Benchmark-Wert für alle Technologien nacheinander 
 %TODO: welche ie-version? vllt neue ausprobieren?
 \newpage
 \section{HTML5-Canvas}
+\paragraph{} Eine tolle Möglichkeit, im Browser pixelgenaue Grafiken zu erzeugen, ist die HTML5 Canvas-API. Indem immer wieder eine Szene mit neuen Parametern gezeichnet wird, kann auf diese Weise ein 2D-Spiel programmiert werden.
 \subsection{Technologie}
-\paragraph{} Das Canvas-Element (englisch für Leinwand) und die entsprechende Javascript-API ist vom W3C spezifiziert und wird von allen großen Browser-Herstellern implementiert. Dadurch ist gesichert, dass ein Browser-Spiel, das das Canvas-Element zur Darstellung nutzt, in auch vielfältigen  Umgebungen korrekt funktioniert. Auch WebGL gehört zum Canvas-Standard, da das Canvas-Element verschiedene Kontexte unterstützt; dieses Kapitel behandelt jedoch ausschließlich den \glqq 2d\grqq-Kontext, der \glqq webgl\grqq-Kontext wird im Kapitel \emph{WebGL} behandelt.
+\paragraph{} Das Canvas-Element (englisch für Leinwand) und die entsprechende Javascript-API ist von der WHATWG-Arbeitsgruppe spezifiziert und wird von allen großen Browser-Herstellern implementiert. Dadurch ist gesichert, dass ein Browser-Spiel, das das Canvas-Element zur Darstellung nutzt, in auch vielfältigen  Umgebungen korrekt funktioniert. Auch WebGL gehört zum Canvas-Standard, da das Canvas-Element verschiedene Kontexte unterstützt; dieses Kapitel behandelt jedoch ausschließlich den \glqq 2d\grqq-Kontext, der \glqq webgl\grqq-Kontext wird im Kapitel \emph{WebGL} behandelt.
 \paragraph{API} Die Canvas-API zeichnet sich besonders durch Schlichtheit und eine niedrige Lernkurve aus. Dabei ist der Zeichen-Kontext als Zustandsautomat implementiert, d.h. es werden nicht alle Informationen zum Zeichnen einer Linie in einem Methoden-Aufruf mitgegeben, sondern in mehreren. Erst wird der Zeichen-Stil konfiguriert, dann wird der Pfad definiert und dann die Linie gezeichnet.
 \begin{figure}[h!]
 	\begin{minted}{javascript}
@@ -155,8 +156,9 @@ Sowohl die großen Differenzen der Performance verschiedener Browser als auch de
 \end{figure}
 \newpage
 \section{WebGL}
+Einen ganz anderen als Canvas verfolgt die Technologie WebGL. Hier wird nicht eine ganz neue API definiert, sondern die bereits bekannte API von OpelGL im Browser zu Verfügung gestellt.
 \subsection{Technologie}
-Genau wie HTML5-Canvas ist auch WebGL vom W3C spezifiziert und wird über den <canvas>-Tag ins Dokument eingebunden. Der Unterschied besteht darin, dass nicht das \emph{2d}-Kontext-Objekt, sonder das \emph{webgl}-Kontext-Objekt genutzt wird. Dieses stellt die (recht umfangreiche) API zur Verfügung, um mit WebGL zu arbeiten. Im Gegensatz zu Canvas, dessen API auf Schlichtheit und eine niedrige Lernkurve abzielt, bringt WebGL im Grunde die gesamte OpenGL-Bibliothek in den Browser. Dabei steht nicht eine schlanke API, sondern Performance im Vordergrund.
+Genau wie HTML5-Canvas ist auch WebGL von der Khronos Group spezifiziert und wird über den <canvas>-Tag ins Dokument eingebunden. Der Unterschied besteht darin, dass nicht das \emph{2d}-Kontext-Objekt, sonder das \emph{webgl}-Kontext-Objekt genutzt wird. Dieses stellt die (recht umfangreiche) API zur Verfügung, um mit WebGL zu arbeiten. Im Gegensatz zu Canvas, dessen API auf Schlichtheit und eine niedrige Lernkurve abzielt, bringt WebGL im Grunde die gesamte OpenGL-Bibliothek in den Browser. Dabei steht nicht eine schlanke API, sondern Performance im Vordergrund.
 \paragraph{3D oder 2D?} Entgegen der landläufigen Meinung ist WebGL \emph{keine} 3D-API, sondern unterstützt von Haus aus nur 2D-Zeichnungen. Allerdings ist es möglich, die 3D-Fähigkeit nachzurüsten und dabei trotzdem hochperformant zu bleiben, indem dieser Code direkt in GLSL implementiert werden kann
 \paragraph{Nativer Shader-Code} Die \emph{OpenGL Shading Language} ist eine an C angelehnte Sprache, um Programme zu schreiben, die direkt auf der Grafikkarte ausgeführt werden. Sie dienen zum Beispiel dazu, die Position von Objekten im dreidimensionalen Raum zu berechnen oder die Farbe oder Textur eines Objektes zu bestimmen. Auch in WebGL können solche GLSL-Shader geschrieben und direkt im Browser kompiliert werden. So können Grafikberechnungen auf der Grafikkarte hoch-parallelisiert ausgeführt werden, was für die enorme Performance von WebGL im Vergleich zu anderen Technologien verantwortlich ist. Hier im Shader-Code würde man die Logik für das Umrechnen von 3D-Objekte in 2D-Objekte vornhemen.
 \paragraph{Komplexe API} Dass WebGL so effizient arbeiten kann, muss der Entwickler einige Kompromisse eingehen. Die auf dem Gebiet der 3D-Spieleentwicklung für Desktop-PCs unerfahrenen Entwickler werden die API sicherlich als unintuitiv und sperrig empfinden. So müssen zum Zeichnen eines einfachen Quadrats folgende Schritte durchgeführt werden:
@@ -231,6 +233,7 @@ Dadurch, dass die Anzahl der Objekte immer konstant bleibt, ist ein statischer P
 \end{figure}
 \newpage
 \section{SVG}
+Anders als WebGL oder Canvas ist SVG deklarativ, d.h. es wird kein Befehl gegeben, ein Rechteck zu zeichnen, sondern es wird ein Rechteck-Element mit gewissen Parametern definiert, welches dann vom System automatisch gezeichnet wird. Eine pixelgenaue Kontrolle ist hier nur sehr schwer nötig, dennoch ist die SVG-Technologie sehr interessant, auch für Browser-Spiele.
 \subsection{Technologie}
 SVG (Scalable Vector Graphics) ist eine vom W3C entwickelte Spezifikation für eine XML-basierte Sprache zur Beschreibung von 2-dimensionalen Vektorgrafiken. Dabei handelt es sich um eine deklarative Beschreibung, das heißt, Interaktivität oder Animationen müssen von aussen gesteuert werden (zum Beispiel über JavaScript).
 \paragraph{SMIL} Es ist auch möglich, SVG-Animationen mit SMIL (Synchronized Multimedia Integration Language) zu beschreiben, das ebenfalls auf XML basiert. Allerdings eignet sich diese Sprache eher für statische Animations-Abläufe (Filme etc.) und ist für echtzeit-dynamische Browserspiele ungeeignet. Aus diesem Grund wird in diesem Dokument nicht tiefer darauf eingegangen.
@@ -289,6 +292,7 @@ Im Benchmark-Test schaffte die SVG-Implementierung nur 500 Objekte, wo WebGL 80.
 \end{figure}
 \newpage
 \section{DOM}
+2D-Spiele mit HTML, also dem Document-Object-Model (kurz DOM) darzustellen, funktioniert ganz ähnlich wie bei SVG. Durch die modernen CSS-Spezifikationen, die viele komplexe Effekte bereitstellen, ergeben sich dabei jedoch ganz andere Möglichkeiten.
 \subsection{Technologie}
 Eine andere Möglichkeit, HTML-Elemente zur Darstellung von Spiele-Objekten zu verwenden ist natürlich die Verwendung der Standard-HTML-Elemente in Verbindung mit CSS-Styling.
 \paragraph{Support} Der größte Vorteil bei dieser Herangehensweise ist natürlich der in jedem Browser verfügbare Support. Wenn man sich für das Spiel auf einfache Rastergrafiken beschränkt und auf Rotation und ähnliches verzichtet, ist sogar CSS1 ausreichend. Allerdings untersützen alle modernen Browser CSS3 - dadurch sind auch Dinge wie Rotationen, einfache Filter, 3D-Transformationen, Schatten und viele andere Dinge möglich. Abbildung \ref{css_transforms_support} zeigt die Browser-Unterstützung für CSS-Transforms. Dazu gehören Rotationen, Skalierungen und freie Matrix-Transformationen. 
