@@ -166,6 +166,70 @@ context.stroke(); //zeichne linie mit obigen einstellungen</code></pre>
                     <li>Rendering direkt auf der Grafikkarte</li>
                 </ul>
             </div>
+            <div class="ft-page">
+                <h1>Native Shader</h1>
+                <ul class="big-ul">
+                    <li>GLSL (ähnlich wie C)</li>
+                    <li>Kompilieren und Linken im Browser</li>
+                    <li>Wird auf Grafikkarte ausgeführt</li>
+                    <li>VertexShader, FragmentShader, ...</li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Beispiel Vertex-Shader</h1>
+                <pre><code class="language-javascript big-code">attribute vec2 a_position;
+uniform vec2 u_resolution;
+            
+void main() {
+   // convert the rectangle from pixels to 0.0 to 1.0
+   vec2 zeroToOne = a_position / u_resolution;
+   // convert from 0->1 to 0->2
+   vec2 zeroToTwo = zeroToOne * 2.0;
+   // convert from 0->2 to -1->+1 (clipspace)
+   vec2 clipSpace = zeroToTwo - 1.0;
+   gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+}</code></pre>
+            </div>
+            <div class="ft-page">
+                <h1>JavaScript-API</h1>
+                <pre><code class="language-javascript big-code">var buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(
+    gl.ARRAY_BUFFER, 
+    new Float32Array([
+        -1.0, -1.0, 1.0, -1.0, -1.0,  1.0, 
+        -1.0,  1.0,  1.0, -1.0, 1.0,  1.0]), 
+    gl.STATIC_DRAW);
+gl.enableVertexAttribArray(positionLocation);
+gl.vertexAttribPointer(positionLocation, 2, 
+    gl.FLOAT, false, 0, 0);
+gl.drawArrays(gl.TRIANGLES, 0, 6);</code></pre>
+            </div>
+            <div class="ft-page">
+                <h1>Community</h1>
+                <ul class="big-ul">
+                    <li>Steile Lernkurve, aber Übergang von OpenGL (Desktop) leicht</li>
+                    <li>7.000 Fragen auf Stackoverflow; 3.000 Projekte auf Github</li>
+                    <li>Selten für 2D verwendet</li>
+                    <li>Bekannte Bibliotheken
+                        <ul>
+                            <li>ThreeJS: <small>Hier nicht relevant da 3D-Grafik</small></li>
+                            <li>PixiJS: <small>Fallback auf Canvas möglich</small></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Unterstützung</h1>
+                <ul class="big-ul">
+                    <li>Nicht so verbreitet wie Canvas</li>
+                    <li>Mobilgeräte oft nicht unterstützt</li>
+                    <li>Performance hängt stark von Hardware-Support ab</li>
+                </ul>
+                <div class="slideshow">
+                    <img src="assets/img/webgl_support.png">
+                </div>
+            </div>
         </div>
         <!-- SVG -->
         <div class="ft-section">
