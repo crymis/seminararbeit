@@ -242,6 +242,46 @@ gl.drawArrays(gl.TRIANGLES, 0, 6);</code></pre>
                     </div>
                 </div>
             </div>
+            <div class="ft-page">
+                <h1>Fakten</h1>
+                <ul class="big-ul">
+                    <li>Spezifikation durch W3C</li>
+                    <li>XML-Dialekt</li>
+                    <li>Animation durch SMIL <small>(Hier nicht behandelt)</small></li>
+                    <li>Einbindung in HTML mit Namespaces</li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Beispiel</h1>
+                <pre><code class="language-javascript big-code">var namespace = "http://www.w3.org/2000/svg";
+//erzeuge svg-root-element
+var cEl = document.createElementNS(namespace, "svg");
+//erzeuge svg-circle-element
+var circle = document.createElementNS(namespace, "circle");
+
+cEl.appendChild(circle);
+</code></pre>
+            </div>
+            <div class="ft-page">
+                <h1>Community</h1>
+                <ul class="big-ul">
+                    <li>(Fast) gleiche API wie Zugriff auf HTML</li>
+                    <li>37.000 Fragen auf Stackoverflow; 3.700 Projekte auf Github</li>
+                    <li>Selten für Spiele verwendet</li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Bibliothek: RaphaelJS</h1>
+                <ul class="big-ul">
+                    <li>Abstrahiert die umständliche SVG-API</li>
+                    <li>Eher für Diagramme etc. verwendet</li>
+                    <li>Beispiel: Gravitas</li>
+                </ul>
+                <div class="slideshow">
+                        <!-- https://github.com/petehamilton/gravitas -->
+                        <img src="assets/img/gravitas.png" />
+                </div>
+            </div>
         </div>
         <!-- DOM -->
         <div class="ft-section">
