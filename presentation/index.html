@@ -153,6 +153,7 @@ context.stroke(); //zeichne linie mit obigen einstellungen</code></pre>
 					<div class="stacked-center">
                         <!-- http://cristinajungdesign.blogspot.de/2013/02/webgl.html -->
                         <img src="assets/img/webgl_logo.png.scaled696.png">
+                        <h1>WebGL</h1>
                     </div>
                 </div>
             </div>
@@ -239,6 +240,7 @@ gl.drawArrays(gl.TRIANGLES, 0, 6);</code></pre>
 					<div class="stacked-center">
                         <!-- http://commons.wikimedia.org/wiki/File:SVG_logo.svg -->
                         <img src="assets/img/SVG_logo.svg.png">
+                        <h1>SVG</h1>
                     </div>
                 </div>
             </div>
@@ -301,7 +303,54 @@ cEl.appendChild(circle);
 					<div class="stacked-center">
                         <!-- http://commons.wikimedia.org/wiki/File:HTML5_logo_and_wordmark.svg -->
                         <img src="assets/img/HTML5_logo_and_wordmark.svg.png">
+                        <h1>HTML5</h1>
                     </div>
+                </div>
+            </div>
+            <div class="ft-page">
+                <h1>Fakten</h1>
+                <ul class="big-ul">
+                    <li>Spezifiziert vom W3C</li>
+                    <li>Eigentlich Darstellung von Websites</li>
+                    <li>Komplexe Animationen durch CSS3-Transitions <small>(nicht behandelt)</small>
+                        <ul>
+                            <li>Rotation</li>
+                            <li>Verschiebung</li>
+                            <li>Skalierung</li>
+                            <li>...</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Beispiel</h1>
+                <ul class="big-ul">
+                    <li>HTML-Attribute (Bildquelle)</li>
+                    <li>CSS-Attribute (Position/Rotation)</li>
+                </ul>
+                <pre><code class="language-javascript big-code">var imgEl = document.createElement("img");
+imgEl.setAttribute("class", "smileyEl");
+imgEl.setAttribute("src", "img/smiley.png");
+imgEl.setAttribute("style","left:"+x+"px;top:"+y+"px");
+cEl.append(imgEl);
+</code></pre>
+            </div>
+            <div class="ft-page">
+                <h1>Community</h1>
+                <ul class="big-ul">
+                    <li>Überall verwendet</li>
+                    <li>ABER selten für Spiele</li>
+                    <li>Sprite.js <small>HTML-Backend neben Canvas und WebGL</small></li>
+                </ul>
+            </div>
+            <div class="ft-page">
+                <h1>Unterstützung</h1>
+                <ul class="big-ul">
+                    <li>Sehr weit verbreitet</li>
+                    <li>CSS3-Transitions nur in neuen Browsern </li>
+                </ul>
+                <div class="slideshow">
+                        <img src="assets/img/css_transforms_support.png" />
                 </div>
             </div>
         </div>
