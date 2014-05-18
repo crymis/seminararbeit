@@ -5,13 +5,10 @@ var lastRenderTime = (new Date()).getTime(); //merke zeit für normalisierung
 c.fillStyle = '#0000ff'; 
 //initialisiere spiele-welt
 var gameObject = {
-	x: 5,
-	y: 5,
-	vecX: 2,
-	vecY: 2
+	x: 5, y: 5,
+	vecX: 2, vecY: 2
 };
-//definiere render-methode
-function render() {
+function render() { //definiere render-methode
     //fordere nächsten render-schritt an
 	requestAnimationFrame(render); 
 	var now = (new Date()).getTime();
