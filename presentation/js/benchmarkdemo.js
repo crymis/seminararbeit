@@ -1,4 +1,32 @@
 window.performanceDemos = {};
+
+window.performanceDemos["canvas"] = function($, callback) {
+    var cEl = $('<canvas width="'+window.demoWidth+'" height="'+window.demoHeight+'" />');
+    var context = cEl[0].getContext("2d");
+    var img = new Image();
+    
+    
+    function drawIt(objects) {
+        context.clearRect ( 0 , 0 , window.demoWidth , window.demoHeight );
+        for(var i=0;i<objects.length;i++) {
+            var objectToDraw = objects[i];
+            context.drawImage(img, objectToDraw.x, objectToDraw.y);
+        }
+    }
+    
+    img.onload = function() {
+        console.log("canvas intialized");
+        callback(drawIt);
+    };
+    
+    
+    
+    
+    this.append(cEl);
+    //drawing will start if img is loaded
+    img.src = "img/smiley.png";
+};
+
 window.performanceDemos["webgl"] = function ($, callback) {
     var cEl = $('<canvas width="' + window.demoWidth + '" height="' + window.demoHeight + '" />');
     var gl = cEl[0].getContext("experimental-webgl");
@@ -113,6 +141,7 @@ window.performanceDemos["webgl"] = function ($, callback) {
         gl.generateMipmap(gl.TEXTURE_2D);
         gl.activeTexture(gl.TEXTURE0);
         //gl.uniform1i(texCoordLocation, 0);
+        console.log("webgl intialized");
         callback(drawIt);
     };
 
@@ -183,56 +212,6 @@ window.requestAnimFrame = (function(){
     var fpsCounter = 0;
     var currentFPSValue = 0;
     
-    function benchmarkDemo(cb) {
-        $('#benchmark-button').removeClass("btn-success").addClass("btn-default");
-    	console.log("Benchmarking Demo "+selectedDemo);
-    
-    	var startObjectCount = 50;
-    	var stepDelay = 7000;
-    	
-	    $('#amountObjects').val(startObjectCount);
-	    $('#start-button').click();
-	    
-	    function amountFnUp(amountObjects, currentFPSValue) {
-		    return Math.floor(amountObjects + amountObjects * (currentFPSValue - 30) / 30 );
-	    }
-	    
-	    function amountFnDown(amountObjects, currentFPSValue) {
-		    return Math.floor(amountObjects * 0.95);
-	    }
-	    
-	    var state = "up";
-	    
-	    function nextBenchmarkStep() {
-			if(state == "up") {
-				if(currentFPSValue < 30) {
-					state = "down";
-					console.log("Upper bound reached: "+amountObjects+", finetuning...");
-					setTimeout(nextBenchmarkStep, stepDelay);
-				} else {
-					console.log(amountObjects+" objects passed, remaining FPS to break down: "+(currentFPSValue - 30));
-					$('#amountObjects').val(amountFnUp(amountObjects, currentFPSValue));
-					$('#start-button').click();
-					setTimeout(nextBenchmarkStep, stepDelay); 
-				}	
-			} else {
-				if(currentFPSValue > 30) {
-					console.log("Demo "+selectedDemo+" benchmarked: "+amountObjects+" Objects @ 30FPS");
-                    $('#benchmark-button').addClass("btn-success").removeClass("btn-default");
-					if(typeof cb == "function") cb(amountObjects);
-				} else {
-					console.log("finetuning...");
-					$('#amountObjects').val(amountFnDown(amountObjects, currentFPSValue));
-					$('#start-button').click();
-					setTimeout(nextBenchmarkStep, stepDelay); 
-				}
-			}    
-			
-	    }
-	    
-	    setTimeout(nextBenchmarkStep, stepDelay);
-    }
-    
     function simulation(drawingFunction) {
         var objects = [];
         for(var i=0;i<amountObjects;i++) {
@@ -279,10 +258,14 @@ window.requestAnimFrame = (function(){
     $(document).ready(function() {
         var counterEl = $('#fps-counter');
         
-        $('#benchmark-button').click(function (e){
-            $('#stop-button').click();
-            benchmarkDemo();
+        $('#stop-button').click(function (e){
+            $('#democontainer').html("");
+            runningSimulation = false;
             e.preventDefault();
+        });
+        
+        $('#demo-chooser').change(function() {
+            selectedDemo = $(this).val();
         });
         
         $('#start-button').click(function (e){
@@ -304,7 +287,7 @@ window.requestAnimFrame = (function(){
         });
         
         setInterval(function() {
-	        currentFPSValue = fpsWatcher();
+	        var currentFPSValue = fpsWatcher();
             counterEl.html("<i class='glyphicon glyphicon-eye-open'></i> FPS: "+currentFPSValue);
         }, fpsCounterInterval);
     });

@@ -419,10 +419,15 @@ cEl.append(imgEl);
             </div>
             <div class="ft-page">
                 <h1>Demo</h1>
-                <button id="benchmark-button">Benchmark</button>
+                <select id="demo-chooser">
+                    <option value="webgl" selected>WebGL</option>
+                    <option value="canvas">Canvas</option>
+                </select>
                 <button id="start-button">Start</button>
+                <button id="stop-button">Stop</button>
+                <input type="number" class="form-control" id="amountObjects" value="100" placeholder="Amount objects">
                 <div id="democontainer" style="height: 400px"></div>
-                <div id="fpscounter"></div>
+                <p id="fps-counter"></p>
             </div>
             <div class="ft-page">
                 <h1>Ergebnisse</h1>
