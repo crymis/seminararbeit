@@ -27,9 +27,25 @@
   /Producer (Johannes Reuter)
 }
 
+%entferne hässliche rahmen von links
+\hypersetup{
+  colorlinks, linkcolor={blue},
+  citecolor={blue}, urlcolor={blue}
+}
+
 \begin{document}
 \maketitle
+\vspace{3.5cm}
+\begin{center}
+ 
+\end{center}
+\vspace{6.5cm}
+Seminararbeit SS 2014 \\
+Betreuer: \\
+\textbf{Prof. Dr. Holger Vogelsang}
+\thispagestyle{empty}
 \newpage
+\setcounter{page}{1}
 \tableofcontents
 \newpage
 \section{Motivation}
@@ -64,7 +80,7 @@ Außerdem kann per Klick der Benchmark-Wert für alle Technologien nacheinander 
 \section{HTML5-Canvas}
 \paragraph{} Eine tolle Möglichkeit, im Browser pixelgenaue Grafiken zu erzeugen, ist die HTML5 Canvas-API. Indem immer wieder eine Szene mit neuen Parametern gezeichnet wird, kann auf diese Weise ein 2D-Spiel programmiert werden.
 \subsection{Technologie}
-\paragraph{} Das Canvas-Element (englisch für Leinwand) und die entsprechende Javascript-API ist von der WHATWG-Arbeitsgruppe spezifiziert und wird von allen großen Browser-Herstellern implementiert. Dadurch ist gesichert, dass ein Browser-Spiel, das das Canvas-Element zur Darstellung nutzt, in auch vielfältigen  Umgebungen korrekt funktioniert. Auch WebGL gehört zum Canvas-Standard, da das Canvas-Element verschiedene Kontexte unterstützt; dieses Kapitel behandelt jedoch ausschließlich den \glqq 2d\grqq-Kontext, der \glqq webgl\grqq-Kontext wird im Kapitel \emph{WebGL} behandelt.
+\paragraph{} Das Canvas-Element und die entsprechende Javascript-API ist von der WHATWG-Arbeitsgruppe spezifiziert und wird von allen großen Browser-Herstellern implementiert. Dadurch ist gesichert, dass ein Browser-Spiel, das das Canvas-Element zur Darstellung nutzt, in auch vielfältigen  Umgebungen korrekt funktioniert. Auch WebGL gehört zum Canvas-Standard, da das Canvas-Element verschiedene Kontexte unterstützt; dieses Kapitel behandelt jedoch ausschließlich den \glqq 2d\grqq-Kontext, der \glqq webgl\grqq-Kontext wird im Kapitel \emph{WebGL} behandelt.
 \paragraph{API} Die Canvas-API zeichnet sich besonders durch Schlichtheit und eine niedrige Lernkurve aus. Dabei ist der Zeichen-Kontext als Zustandsautomat implementiert, d.h. es werden nicht alle Informationen zum Zeichnen einer Linie in einem Methoden-Aufruf mitgegeben, sondern in mehreren. Erst wird der Zeichen-Stil konfiguriert, dann wird der Pfad definiert und dann die Linie gezeichnet.\cite{CanvasSpec}
 \begin{figure}[h!]
 	\begin{minted}{javascript}
