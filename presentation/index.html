@@ -235,24 +235,6 @@ context.stroke(); //zeichne linie mit obigen einstellungen</code></pre>
                 </ul>
             </div>
             <div class="ft-page">
-                <h1>Beispiel Vertex-Shader</h1>
-                <div class="code-figure">
-                    <pre><code class="language-javascript big-code">attribute vec2 a_position;
-uniform vec2 u_resolution;
-            
-void main() {
-   // convert the rectangle from pixels to 0.0 to 1.0
-   vec2 zeroToOne = a_position / u_resolution;
-   // convert from 0->1 to 0->2
-   vec2 zeroToTwo = zeroToOne * 2.0;
-   // convert from 0->2 to -1->+1 (clipspace)
-   vec2 clipSpace = zeroToTwo - 1.0;
-   gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
-}</code></pre>
-                    <span>http://www.html5rocks.com/en/tutorials/webgl/webgl_fundamentals/</span>
-                </div>
-            </div>
-            <div class="ft-page">
                 <h1>JavaScript-API</h1>
                 <div class="code-figure">
                     <pre><code class="language-javascript big-code">var buffer = gl.createBuffer();
@@ -315,6 +297,7 @@ gl.drawArrays(gl.TRIANGLES, 0, 6);</code></pre>
                 <h1>Fakten</h1>
                 <ul class="big-ul">
                     <li>Spezifikation durch W3C</li>
+                    <li>zweidimensionale Vektorgrafiken</li>
                     <li>XML-Dialekt</li>
                     <li>Animation durch SMIL <small>(Hier nicht behandelt)</small></li>
                     <li>Einbindung in HTML mit Namespaces</li>
