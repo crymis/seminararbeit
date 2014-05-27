@@ -448,16 +448,12 @@ cEl.append(imgEl);
                 <div id="democontainer" style="height: 400px"></div>
                 <p id="fps-counter"></p>
             </div>
-            <div class="ft-page">
+            <div class="ft-page" data-id="benchmark-chart-page">
                 <h1>Ergebnisse <small>Chrome / Linux</small></h1>
-                <p></p>
-                <ul class="big-ul">
-                    <li>Canvas: 8.000</li>
-                    <li>WebGL: 100.000</li>
-                    <li>SVG: 1.200</li>
-                    <li>HTML5: 1.000</li>
-                </ul>
+                <p>Anzahl Objekte bei 30 Bildern pro Sekunde</p>
+                <div id="benchmark_chart"></div>
                 <p><big>In anderen Browsern teilw. deutlich andere Ergebnisse</big></p>
+                <div class="ft-fragment"></div>
             </div>
         </div>
         <!-- Fazit -->
@@ -540,43 +536,124 @@ cEl.append(imgEl);
     <script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/brav1toolbox.js"></script>
 	<script src="js/flowtime.js"></script>
+    <script src="js/chart.js"></script>
     <script src="js/benchmarkdemo.js"></script>
 	<script src="assets/js/prism.js"></script>
 
 	<script type="text/javascript">
-        // Configuration API test
-		Flowtime.showProgress(true);
-		// Flowtime.fragmentsOnSide(true);
-		// Flowtime.fragmentsOnBack(true);
-		// Flowtime.useHistory(false);
-		// Flowtime.slideInPx(true);
-		// Flowtime.sectionsSlideToTop(true);
-		// Flowtime.gridNavigation(false);
-		// Flowtime.useOverviewVariant(true);
-		//Flowtime.parallaxInPx(true);
-		//
-		// event management
-		// Flowtime.addEventListener("flowtimenavigation", onNavigation, false);
-		Flowtime.onNavigation(onNavigation);
-		function onNavigation(e)
-		{
-			// console.log(cacheTitle + ' > ' + document.title.replace("Flowtime.js | ", ""));
-			//cacheTitle = document.title.replace("Flowtime.js | ", "");
-			//console.log('section', e.section, 'sectionIndex', e.sectionIndex);
-			//console.log('page', e.page, 'pageIndex', e.);
-			//console.log('pastSectionIndex', e.pastSectionIndex, 'pastPageIndex', e.pastPageIndex);
-			//console.log('prevSection', e.prevSection);
-			//console.log('nextSection', e.nextSection);
-			//console.log('prevPage', e.prevPage);
-			//console.log('nextPage', e.nextPage);
-			//console.log('fragment', e.fragment, + 'fragmentIndex', e.fragmentIndex);
-			//console.log("isOverview", e.isOverview);
-			//console.log('progress:', e.progress, 'total:', e.total);
-			// var value = Math.round(e.progress * 100 / e.total);
-			// console.log('Completion: ' + value + '%');
-		}
-		// starts the application with configuration options
-		Flowtime.start();
+
+        function createBenchmarkChart(includeWebGL) {
+            var c = $('<canvas width="'+window.demoWidth+'" height="'+window.demoHeight+'" />');
+            $('#benchmark_chart').html("").append(c);
+            var data = null;
+            if(includeWebGL) {
+                var data = {
+                    labels : ["Canvas","WebGL","SVG","DOM"],
+                    datasets : [
+                        {
+                            fillColor : "rgba(220,220,220,0.5)",
+                            strokeColor : "rgba(220,220,220,1)",
+                            data : [8000,
+                                    100000,
+                                    1200,
+                                    1000,
+                                   ]
+                        }
+                    ]
+                };
+            } else {
+                var data = {
+                    labels : ["Canvas","SVG","DOM"],
+                    datasets : [
+                        {
+                            fillColor : "rgba(220,220,220,0.5)",
+                            strokeColor : "rgba(220,220,220,1)",
+                            data : [8000,
+                                    1200,
+                                    1000,
+                                   ]
+                        }
+                    ]
+                };
+            }
+
+            var options = {
+                    animationSteps : 100,
+                    barValueSpacing : 30,
+                    scaleFontSize : 25,
+                    scaleOverlay : true,
+                    scaleFontStyle : "normal",
+                    scaleFontColor : "#ddd",
+                    scaleOverride : true,
+                    scaleStartValue : 0,
+                    scaleSteps : 10,
+                    scaleLabel : "<%=number_format(value,0,'','.')%>",
+                    scaleStepWidth : (includeWebGL ? 10000 : 1000),
+            };
+
+            var barChart = new Chart(c[0].getContext("2d")).Bar(data, options);
+        }
+
+        function number_format (number, decimals, dec_point, thousands_sep)
+        {
+          var exponent = "";
+          var numberstr = number.toString ();
+          var eindex = numberstr.indexOf ("e");
+          if (eindex > -1)
+          {
+            exponent = numberstr.substring (eindex);
+            number = parseFloat (numberstr.substring (0, eindex));
+          }
+
+          if (decimals != null)
+          {
+            var temp = Math.pow (10, decimals);
+            number = Math.round (number * temp) / temp;
+          }
+          var sign = number < 0 ? "-" : "";
+          var integer = (number > 0 ?
+              Math.floor (number) : Math.abs (Math.ceil (number))).toString ();
+
+          var fractional = number.toString ().substring (integer.length + sign.length);
+          dec_point = dec_point != null ? dec_point : ".";
+          fractional = decimals != null && decimals > 0 || fractional.length > 1 ?
+                       (dec_point + fractional.substring (1)) : "";
+          if (decimals != null && decimals > 0)
+          {
+            for (i = fractional.length - 1, z = decimals; i < z; ++i)
+              fractional += "0";
+          }
+
+          thousands_sep = (thousands_sep != dec_point || fractional.length == 0) ?
+                          thousands_sep : null;
+          if (thousands_sep != null && thousands_sep != "")
+          {
+            for (i = integer.length - 3; i > 0; i -= 3)
+              integer = integer.substring (0 , i) + thousands_sep + integer.substring (i);
+          }
+
+          return sign + integer + fractional + exponent;
+        }
+
+        $(document).ready(function() {
+            Flowtime.showProgress(true);
+            Flowtime.onNavigation(onNavigation);
+            function onNavigation(e)
+            {
+                if($(e.page).attr("data-id") === "__benchmark-chart-page") {
+                    if(!e.fragment) {
+                        //include webgl
+                        createBenchmarkChart(true);
+                    } else {
+                        //exclude webgl
+                        createBenchmarkChart(false);
+                    }
+
+                }
+            }
+            // starts the application with configuration options
+            Flowtime.start();
+        });
 	</script>
 </body>
 </html>

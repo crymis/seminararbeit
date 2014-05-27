@@ -258,6 +258,9 @@ window.requestAnimFrame = (function(){
     $(document).ready(function() {
         var counterEl = $('#fps-counter');
         
+        window.demoWidth = $('#democontainer').width();
+        window.demoHeight = $('#democontainer').height();
+
         $('#stop-button').click(function (e){
             $('#democontainer').html("");
             runningSimulation = false;
