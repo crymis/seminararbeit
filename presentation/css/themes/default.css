@@ -209,6 +209,21 @@ body {
     line-height: 3.5rem;
 }
 
+.flowtime ul.hide-bullets li:before {
+    content: none;
+}
+
+.flowtime ul li:before, .flowtime dl dt:before {
+    left:-1.5rem;
+}
+
+.flowtime ul span.bullet {
+    display: inline-block;
+    margin-right: 10px;
+    color: #ffdd00;
+    font-weight: bold;
+}
+
 .flowtime dl dd {
 	font-size: 0.8em;
 	margin-left: 1rem;

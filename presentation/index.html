@@ -312,20 +312,9 @@ cEl.appendChild(circle);
                 <ul class="big-ul">
                     <li>(Fast) gleiche API wie Zugriff auf HTML</li>
                     <li>37.000 Fragen auf Stackoverflow; 3.700 Projekte auf Github</li>
-                    <li>Selten für Spiele verwendet</li>
+                    <li>Selten für Spiele verwendet (eher Diagramme etc.)</li>
+                    <li>Abstraktions-Bibliothek: RaphaelJS</li>
                 </ul>
-            </div>
-            <div class="ft-page">
-                <h1>Bibliothek: RaphaelJS</h1>
-                <ul class="big-ul">
-                    <li>Abstrahiert die umständliche SVG-API</li>
-                    <li>Eher für Diagramme etc. verwendet</li>
-                    <li>Beispiel: Gravitas</li>
-                </ul>
-                <div class="slideshow">
-                        <!-- https://github.com/petehamilton/gravitas -->
-                        <img src="assets/img/gravitas.png" />
-                </div>
             </div>
             <div class="ft-page">
                 <h1>Unterstützung</h1>
@@ -430,13 +419,15 @@ cEl.append(imgEl);
                 <p id="fps-counter"></p>
             </div>
             <div class="ft-page">
-                <h1>Ergebnisse</h1>
+                <h1>Ergebnisse <small>Chrome / Linux</small></h1>
+                <p></p>
                 <ul class="big-ul">
                     <li>Canvas: 8.000</li>
                     <li>WebGL: 100.000</li>
                     <li>SVG: 1.200</li>
                     <li>HTML5: 1.000</li>
                 </ul>
+                <p><big>In anderen Browsern teilw. deutlich andere Ergebnisse</big></p>
             </div>
         </div>
         <!-- Fazit -->
@@ -463,19 +454,15 @@ cEl.append(imgEl);
                 <h1>Vergleich Canvas/WebGL</h1>
                 <ul class="big-ul">
                     <li>Canvas
-                        <ul>
-                            <li>+ Einfache API</li>
-                            <li>+ Große Community</li>
-                            <li>+ Gute Unterstützung</li>
-                            <li>- Performance</li>
+                        <ul class="hide-bullets">
+                            <li><span class="bullet">+</span>Einfache API / Große Community</li>
+                            <li><span class="bullet">+</span>Gute Unterstützung / Performance</li>
                         </ul>
                     </li>
                     <li>WebGL
-                        <ul>
-                            <li>+ Performance</li>
-                            <li>+ Kontrolle (OpenGL-API)</li>
-                            <li>- Steile Lernkurve</li>
-                            <li>- Wenige Unterstützung auf Mobilgeräten</li>
+                        <ul class="hide-bullets">
+                            <li><span class="bullet">+</span>Performance / Kontrolle (OpenGL-API)</li>
+                            <li><span class="bullet">-</span>Steile Lernkurve / Mobilgeräte schlecht unterstützt</li>
                         </ul>
                     </li>
                 </ul>
@@ -484,19 +471,15 @@ cEl.append(imgEl);
                 <h1>Vergleich SVG/HTML5</h1>
                 <ul class="big-ul">
                     <li>SVG
-                        <ul>
-                            <li>+ "Battletested"</li>
-                            <li>+ Gute Unterstützung</li>
-                            <li>- Performance</li>
-                            <li>- gedachte Anwendung: Graphen etc.</li>
+                        <ul class="hide-bullets">
+                            <li><span class="bullet">+</span>"Battletested" / Gute Unterstützung</li>
+                            <li><span class="bullet">-</span>Performance / eigtl. für Graphen gedacht</li>
                         </ul>
                     </li>
                     <li>HTML5
-                        <ul>
-                            <li>+ CSS3 Transitions/Transforms</li>
-                            <li>+ Basics überall verfügbar</li>
-                            <li>- Großer Overhead durch DOM</li>
-                            <li>- Performance (sehr instabil)</li>
+                        <ul class="hide-bullets">
+                            <li><span class="bullet">+</span>CSS3 Transitions / Basics überall verfügbar</li>
+                            <li><span class="bullet">-</span>Großer Overhead durch DOM / Performance (sehr instabil)</li>
                         </ul>
                     </li>
                 </ul>
@@ -513,6 +496,11 @@ cEl.append(imgEl);
                 <div class="stack-center">
 					<div class="stacked-center">
                         <h1>Vielen Dank für die Aufmerksamkeit!</h1>
+                        <ul>
+                            <li>Diese Präsentation: <a href="http://flash1293.github.io/seminar/presentation">flash1293.github.io/seminar/presentation</a></li>
+                            <li>Benchmark-Demo: <a href="http://flash1293.github.io/seminar/demos">flash1293.github.io/seminar/demos</a></li>
+                            <li>Angewandtes Beispiel: <a href="http://flash1293.github.io/balls">flash1293.github.io/balls</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
