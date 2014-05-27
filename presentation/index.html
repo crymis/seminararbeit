@@ -89,11 +89,20 @@
                 </ul>
                  <div class="slideshow">
                     <!-- http://commons.wikimedia.org/wiki/File:Spacewar1.png -->
-                    <img src="assets/img/Spacewar1.png"/>
+                    <span class="img-figure">
+                        <img src="assets/img/Spacewar1.png"/>
+                        <span>http://commons.wikimedia.org/wiki/File:Spacewar1.png</span>
+                    </span>
                     <!-- http://en.wikipedia.org/wiki/File:Supermarioworld.jpg -->
-                    <img src="assets/img/supermarioworld.jpg"/>
+                    <span class="img-figure">
+                        <img src="assets/img/supermarioworld.jpg"/>
+                        <span>http://en.wikipedia.org/wiki/File:Supermarioworld.jpg</span>
+                    </span>
                     <!-- http://www.juggernart.com/games/free-online-platformer-games/mirrors-edge-flash_de.html -->
-                    <img src="assets/img/mirrors-edge-flash.jpg"/>
+                    <span class="img-figure">
+                        <img src="assets/img/mirrors-edge-flash.jpg"/>
+                        <span>http://www.juggernart.com/games/free-online-platformer-games/mirrors-edge-flash_de.html</span>
+                    </span>
                 </div>
             </div>
             <div class="ft-page">
@@ -156,13 +165,16 @@
                     <li>Zustandsautomat</li>
                     <li>Linien, Rechtecke, Kreise, Rastergrafiken, ...</li>
                 </ul>
-                <pre><code class="language-javascript big-code">context.strokeStyle = '#fa00ff'; //definiere Farbe
+                <div class="code-figure">
+                    <pre><code class="language-javascript big-code">context.strokeStyle = '#fa00ff'; //definiere Farbe
 context.lineWidth = 5; //definiere Stift-Breite
 context.lineCap = 'round'; //definiere Linien-Abschluss
 context.beginPath(); //definiere pfad
 context.moveTo(0,0); //...
 context.lineTo(100,100); //...
 context.stroke(); //zeichne linie mit obigen einstellungen</code></pre>
+                    <span>http://stackoverflow.com/questions/16021502/html-5-2d-canvas-animation-clearing</span>
+                </div>
             </div>
             <div class="ft-page">
                 <h1>Community</h1>
@@ -184,7 +196,10 @@ context.stroke(); //zeichne linie mit obigen einstellungen</code></pre>
                     <li>viele Mobilgeräte</li>
                 </ul>
                 <div class="slideshow">
-                    <img src="assets/img/canvas_support.png">
+                    <span class="img-figure">
+                        <img src="assets/img/canvas_support.png">
+                        <span>http://caniuse.com/#feat=canvas</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -221,7 +236,8 @@ context.stroke(); //zeichne linie mit obigen einstellungen</code></pre>
             </div>
             <div class="ft-page">
                 <h1>Beispiel Vertex-Shader</h1>
-                <pre><code class="language-javascript big-code">attribute vec2 a_position;
+                <div class="code-figure">
+                    <pre><code class="language-javascript big-code">attribute vec2 a_position;
 uniform vec2 u_resolution;
             
 void main() {
@@ -233,10 +249,13 @@ void main() {
    vec2 clipSpace = zeroToTwo - 1.0;
    gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
 }</code></pre>
+                    <span>http://www.html5rocks.com/en/tutorials/webgl/webgl_fundamentals/</span>
+                </div>
             </div>
             <div class="ft-page">
                 <h1>JavaScript-API</h1>
-                <pre><code class="language-javascript big-code">var buffer = gl.createBuffer();
+                <div class="code-figure">
+                    <pre><code class="language-javascript big-code">var buffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
 gl.bufferData(
     gl.ARRAY_BUFFER, 
@@ -248,6 +267,8 @@ gl.enableVertexAttribArray(positionLocation);
 gl.vertexAttribPointer(positionLocation, 2, 
     gl.FLOAT, false, 0, 0);
 gl.drawArrays(gl.TRIANGLES, 0, 6);</code></pre>
+                    <span>http://www.html5rocks.com/en/tutorials/webgl/webgl_fundamentals/</span>
+                </div>
             </div>
             <div class="ft-page">
                 <h1>Community</h1>
@@ -271,7 +292,10 @@ gl.drawArrays(gl.TRIANGLES, 0, 6);</code></pre>
                     <li>Performance hängt stark von Hardware-Support ab</li>
                 </ul>
                 <div class="slideshow">
-                    <img src="assets/img/webgl_support.png">
+                    <span class="img-figure">
+                        <img src="assets/img/webgl_support.png">
+                        <span>http://caniuse.com/#feat=webgl</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -323,7 +347,10 @@ cEl.appendChild(circle);
                     <li>IE unterstützt kein SMIL</li>
                 </ul>
                 <div class="slideshow">
+                    <span class="img-figure">
                         <img src="assets/img/svg_support.png" />
+                        <span>http://caniuse.com/#feat=svg</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -382,7 +409,10 @@ cEl.append(imgEl);
                     <li>CSS3-Transitions nur in neuen Browsern </li>
                 </ul>
                 <div class="slideshow">
+                    <span class="img-figure">
                         <img src="assets/img/css_transforms_support.png" />
+                        <span>http://caniuse.com/#feat=css-transitions</span>
+                    </span>
                 </div>
             </div>
         </div>

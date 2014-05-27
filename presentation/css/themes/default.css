@@ -248,12 +248,6 @@ body {
     text-align: center;
 }
 
-.flowtime .slideshow img {
-    display:inline-block;
-    margin-right: 5%;
-    
-}
-
 .flowtime strong {
 	font-weight: bold;
 	color: #ffdd00;
@@ -397,6 +391,26 @@ body {
 .flowtime .stack-center .stacked-center li {
 	text-align: left;
 }
+
+.flowtime .img-figure {
+    display: inline-block;
+    font-family: 'Arial';
+    font-size: 10px;
+    color: #ddd;
+    margin-right: 3%;
+}
+
+.flowtime .img-figure img {
+    display: block;
+}
+
+.flowtime .code-figure>span {
+    display: inline-block;
+    font-family: 'Arial';
+    font-size: 10px;
+    color: #ddd;
+}
+
 
 /* media queries */
 
